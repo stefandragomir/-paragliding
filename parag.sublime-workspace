@@ -1,0 +1,407 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"node",
+				"node_height"
+			],
+			[
+				"add",
+				"add_child"
+			],
+			[
+				"wdg_",
+				"wdg_toolbar"
+			],
+			[
+				"stop",
+				"stop_running"
+			],
+			[
+				"__host",
+				"__host_threads"
+			],
+			[
+				"log",
+				"logger"
+			],
+			[
+				"__path",
+				"__paths_configs"
+			],
+			[
+				"__p",
+				"__path_config"
+			],
+			[
+				"loa",
+				"__load_paths"
+			],
+			[
+				"__",
+				"__loader"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "Packages/Python/Python.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"hex",
+				"HexViewer: Toggle Hex View"
+			],
+			[
+				"indent",
+				"Indent XML"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"set syntax json",
+				"Set Syntax: JSON"
+			],
+			[
+				"out",
+				"Browse Mode: Outline (Left)"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/projects/paragliding/src"
+	],
+	"file_history":
+	[
+		"/C/cygwin64/home/stefa/download/titan/utils.c",
+		"/C/cygwin64/home/stefa/download/titan/README",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/0/Secure FTP/yel_root/etc/httpd/conf.d/trac.conf",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/0/Secure FTP/yel_root/etc/httpd/conf.d/review.conf",
+		"/C/Users/stefa/Desktop/DotA_Allstars_6.89a3.w3x",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/1/Secure FTP/yel_root/opt/gitlab/embedded/service/gitlab-shell/hooks/update",
+		"/C/Users/stefa/Desktop/dbg",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/1/Secure FTP/yel_root/opt/gitlab/embedded/service/gitlab-shell/hooks/pre-receive",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/1/Secure FTP/yel_root/etc/gitlab/gitlab.rb",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/1/Secure FTP/yel_git/home/git/pgb/git/clones/pgb/units/pgb_hooks/pre_receive.py",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/1/Secure FTP/yel_git/home/git/pgb/git/clones/pgb/units/pgb_hooks/hook_gl.py",
+		"/D/temp/ghost/gsagen.py",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/1/Secure FTP/yctt_git/home/git/pgb/git/clones/pgb/scripts/configuration_yctt_server/configuration.xml",
+		"/D/projects/ygr_tool_ei_00000_yc_ptcc/.gitignore",
+		"/D/projects/ygr_tool_ei_00000_yc_ptcc/.gitattributes",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/0/Secure FTP/yel_git/home/git/pgb/git/clones/pgb/scripts/configuration_yel_server/configuration.xml",
+		"/C/Users/stefa/.ssh/id_rsa.pub",
+		"/C/Users/stefa/Desktop/ptci",
+		"/D/projects/ygr_tool_ei_00000_yc_pvtools.wiki/Sequencer.md",
+		"/D/projects/ygr_tool_ei_00000_yc_pvtools.wiki/Download.md",
+		"/C/Users/stefa/Desktop/gitrm",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/0/Secure FTP/yel_root/home/git/pgb/git/clones/pgb/scripts/configuration_yel_server/configuration.xml",
+		"/D/projects/tentacle/test/test.py",
+		"/D/projects/tentacle/src/tentacle.py",
+		"/D/projects/tentacle/test/model_1.py",
+		"/D/projects/tentacle/README",
+		"/D/projects/tentacle/.gitignore",
+		"/D/projects/mqt/src/mqt.py",
+		"/D/projects/mqt/src/debug.py",
+		"/D/projects/mqt/src/mqt_widgets.py",
+		"/D/projects/mqt/src/mqt_constants.py",
+		"/D/projects/mqt/src/mqt_functional.py",
+		"/D/projects/mqt/src/build.bat",
+		"/D/projects/mqt/README.md",
+		"/D/projects/mqt/src/mqt_icons.py",
+		"/D/projects/mqt/.gitignore",
+		"/D/projects/mandelbrot/mqt_widgets.py",
+		"/D/projects/mandelbrot/mqt.py",
+		"/D/projects/mandelbrot/mqt_functional.py",
+		"/D/projects/mandelbrot/mqt_icons.py",
+		"/D/projects/mandelbrot/mqt_constants.py",
+		"/D/dropbox/Dropbox/projectwork/In/04.Sublime/mqt_icons.py",
+		"/D/projects/mandelbrot/mandelbrot.py",
+		"/D/projects/mandelbrot/plot.py",
+		"/D/toolbox/python3/Scripts/pip.exe",
+		"/D/projects/freya_web/src/fy_config.py",
+		"/D/projects/freya_web/src/freya.config",
+		"/D/projects/freya_web/src/freya.py",
+		"/D/projects/freya_web/src/fy_com.py",
+		"/D/projects/freya_web/src/fy_logger.py",
+		"/D/projects/freya_web/src/fy_args.py",
+		"/D/projects/pgb/units/pgb_admin/admin.py",
+		"/C/Program Files (x86)/GPlay/GPlay.exe",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/0/Secure FTP/yel_pgb/home/pgb/repos/git/bares/crawl.py",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/0/Secure FTP/yel_pgb/home/pgb/gitweb/gitweb.cgi",
+		"/D/projects/freya_web/src/fy_main.py",
+		"/D/projects/freya_web/src/default.config",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/0/Secure FTP/yel_pgb/home/pgb/trac/env/ybs/conf/trac.ini",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/0/Secure FTP/yel_pgb/home/pgb/trac/env/pvtools/conf/trac.ini",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/0/Secure FTP/yel_pgb/home/pgb/trac/env/pgb/conf/trac.ini",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/0/Secure FTP/yel_pgb/home/pgb/trac/env/odoo/conf/trac.ini",
+		"/C/Users/stefa/AppData/Local/Temp/_tc_/trac.ini",
+		"/C/Users/stefa/AppData/Local/Temp/_tcx/0/Secure FTP/yel_pgb/home/pgb/trac/env/ghost/conf/trac.ini",
+		"/C/Users/stefa/AppData/Local/Temp/_tc/trac.ini",
+		"/D/projects/freya_web/docs/design/dependencies.txt",
+		"/D/projects/freya_web/src/fy_err.py",
+		"/D/projects/freya_web/src/fy_os.py",
+		"/D/projects/freya_web/tests/env_1/config/default.config",
+		"/D/projects/freya_web/tests/env_1/config/env_1.config",
+		"/D/projects/freya_web/src/fy_util.py",
+		"/D/dropbox/Dropbox/repositories/clones/freya/units/fy_util/logger.py",
+		"/D/dropbox/Dropbox/repositories/clones/freya/units/system/process.py",
+		"/D/dropbox/Dropbox/projectwork/In/07.Config/tasks"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 104.0,
+		"where_history":
+		[
+			"C:\\cygwin64\\home\\stefa\\download\\titan",
+			"D:\\projects\\mqt\\src",
+			"D:\\projects\\freya_web\\src"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"get_lockfile_path",
+			"Error creating lock file",
+			"ssl",
+			"ptcc",
+			"||",
+			"----",
+			"== ",
+			" ==",
+			"[wiki:configuration/cfgcansignals Cfg_SignalMeasurementAndGeneration]",
+			"'''",
+			"=",
+			" =",
+			"||",
+			"}}}",
+			"{{{",
+			"==",
+			" ==",
+			"==",
+			"'''",
+			"pvtool",
+			"vsm",
+			"separator_width",
+			"nd_x",
+			"_grid_width",
+			"width",
+			"Tentacle_Node",
+			"clbk_set",
+			"register_",
+			"shade",
+			"print",
+			"MQT_WDG_Button",
+			"C:",
+			"signal",
+			"PGB_Poller_SignalClbk",
+			"_FY_Com_Socket",
+			"_FY_Config_Host",
+			"_FY_Config_Socket",
+			"_FY_Com_Socket",
+			"print",
+			"start_running",
+			"_FY_Com_Thread",
+			"__name",
+			"touch",
+			"__get_config_files",
+			"__load_logger",
+			"__load_paths",
+			"arg",
+			"url",
+			"gitweb",
+			"gitweb.url",
+			"HOST",
+			"FY_Err_Env_Lock",
+			"_FY_Com_Thread",
+			"_FY_Com_Socket",
+			"_FY_Com_Thread",
+			"stefan",
+			"FY_Environment",
+			"IsW",
+			"Is",
+			"_archive_log",
+			"_log"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"|",
+			"",
+			"# ",
+			"",
+			"Cfg_SignalMeasurementAndGeneration",
+			"**",
+			"# ",
+			"",
+			"|",
+			"```",
+			" ## ",
+			" ",
+			"## ",
+			"**"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 39.3333333333
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 96.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.hex_viewer_inspector":
+	{
+		"height": 96.0
+	},
+	"pinned_build_system": "",
+	"project": "parag.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 246.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
