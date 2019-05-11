@@ -47,6 +47,42 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "src/parag/parag.py",
+			"settings":
+			{
+				"buffer_size": 2322,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/parag_db/parag_db.py",
+			"settings":
+			{
+				"buffer_size": 0,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/parag_icons/parag_icons.py",
+			"settings":
+			{
+				"buffer_size": 784,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/parag_widgets/parag_widgets.py",
+			"settings":
+			{
+				"buffer_size": 6228,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "Packages/Python/Python.sublime-build",
 	"build_system_choices":
@@ -120,10 +156,16 @@
 	},
 	"expanded_folders":
 	[
-		"/D/projects/paragliding/src"
+		"/D/projects/paragliding/src",
+		"/D/projects/paragliding/src/parag",
+		"/D/projects/paragliding/src/parag_db",
+		"/D/projects/paragliding/src/parag_icons",
+		"/D/projects/paragliding/src/parag_widgets"
 	],
 	"file_history":
 	[
+		"/D/projects/paragliding/src/temp2.py",
+		"/D/projects/paragliding/src/temp.py",
 		"/C/cygwin64/home/stefa/download/titan/utils.c",
 		"/C/cygwin64/home/stefa/download/titan/README",
 		"/C/Users/stefa/AppData/Local/Temp/_tcx/0/Secure FTP/yel_root/etc/httpd/conf.d/trac.conf",
@@ -309,8 +351,123 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "src/parag/parag.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2322,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1378,
+								1378
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 332.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/parag_db/parag_db.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/parag_icons/parag_icons.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 784,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								149,
+								149
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/parag_widgets/parag_widgets.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6228,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								150,
+								2
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
 			]
 		}
 	],
