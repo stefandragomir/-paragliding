@@ -85,7 +85,6 @@ class Parag_UI(QMainWindow):
 
         pass
         
-
     def tree_select(self, current, previous):
 
         self.context.setCurrentIndex(0) 
@@ -99,7 +98,7 @@ class Parag_UI(QMainWindow):
 
         self.tree.clear()
 
-        self.stack_index = 0 
+        self.stack_index = 1 
 
         _parent = self.tree.invisibleRootItem()
 
@@ -116,6 +115,8 @@ class Parag_UI(QMainWindow):
             self.stack_index += 1
 
     def populate_stack(self):
+
+        self.context.insertWidget(0, QWidget())
 
         for _idx in range(len(self.docs)):
 
@@ -138,6 +139,12 @@ class Parag_UI(QMainWindow):
 
                     self.docs.append(Parag_Model_Doc(os.path.join(_doc_dir,_file)))
                     self.docs[-1].read()
+
+            self.docs.append(Parag_Model_Doc(r"docs\toate_domeniile.docx"))
+
+            for _doc in self.docs:
+
+                self.docs[-1].test_learn.questions += _doc.test_learn.questions
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -330,6 +337,7 @@ class Parag_WDG_Desktop_Test(QWidget):
         self.bt_close.setIconSize(QSize(50,50))
 
         self.lbl_status = Parag_WDG_Label()
+        self.lbl_result = Parag_WDG_Label()
 
         self.bt_layout = QHBoxLayout()
         self.bt_layout.addWidget(self.bt_prev)
@@ -344,8 +352,11 @@ class Parag_WDG_Desktop_Test(QWidget):
         self.main_layout.addLayout(self.bt_layout)
         self.main_layout.addWidget(self.wdg_question)
         self.main_layout.addWidget(self.lbl_status)
+        self.main_layout.addWidget(self.lbl_result)
 
         self.setLayout(self.main_layout) 
+
+        self.lbl_result.hide()
 
         self.bt_next.hide()
         self.bt_prev.hide()
@@ -357,6 +368,8 @@ class Parag_WDG_Desktop_Test(QWidget):
         self.test_type = test_type
 
         self.question_number = 0
+
+        self.wdg_question.show()
 
         if self.test_type == "learn":            
             self.doc.test_learn.clear()
@@ -373,6 +386,7 @@ class Parag_WDG_Desktop_Test(QWidget):
             self.get_test_questions()
             self.wdg_question.populate(self.doc.test_exam.questions[self.question_number])
 
+        self.lbl_result.hide()
         self.set_status()
 
     def get_test_questions(self):
@@ -460,12 +474,23 @@ class Parag_WDG_Desktop_Test(QWidget):
             self.bt_close.show()
             self.wdg_question.hide()
 
+            self.lbl_result.show()
+
+            if _corect > PARAG_MIN_CORECT_QUESTIONS:
+                self.lbl_result.setText("ADMIS")
+                self.lbl_result.setStyleSheet("QLabel { background-color : #14c941; font: 18pt; color: #ffffff}")
+                self.lbl_result.setAlignment(Qt.AlignCenter)
+            else:
+                self.lbl_result.setText("PICAT")
+                self.lbl_result.setStyleSheet("QLabel { background-color : #ba2012; font: 18pt;  color: #ffffff}")
+                self.lbl_result.setAlignment(Qt.AlignCenter)
+
     def set_status(self):
 
         if self.test_type == "learn":
             self.lbl_status.setText("Intrebarea[%s/%s] " % (self.question_number + 1,len(self.doc.test_learn.questions)))
         else:
-            self.lbl_status.setText("Intrebarea[%s/%s]" % (self.question_number + 1,len(self.doc.test_learn.questions)))
+            self.lbl_status.setText("Intrebarea[%s/%s]" % (self.question_number + 1,len(self.doc.test_exam.questions)))
 
     def is_end(self,question_number):
 
