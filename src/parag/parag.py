@@ -1,6 +1,7 @@
 
 import os
 import sys
+import random
 
 try:
     _path = os.path.split(os.path.split(os.path.abspath(__file__))[0])[0]
@@ -18,6 +19,10 @@ from PyQt5.QtWidgets                                                   import *
 from parag_widgets.parag_widgets                                       import *
 from parag_widgets.parag_css                                           import *
 from parag_icons.parag_icons                                           import Parag_Icon
+
+PARAG_NUMBER_OF_TEST_QUESTIONS = 10
+PARAG_MIN_CORECT_QUESTIONS     = 8
+
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -125,12 +130,14 @@ class Parag_UI(QMainWindow):
         _doc_dir = os.path.split(os.path.abspath("__file__"))[0]
         _doc_dir = os.path.join(_doc_dir,"docs")
 
-        for _file in os.listdir(_doc_dir):
+        if os.path.exists(_doc_dir):
 
-            if os.path.splitext(_file)[1] == ".docx":
+            for _file in os.listdir(_doc_dir):
 
-                self.docs.append(Parag_Model_Doc(os.path.join(_doc_dir,_file)))
-                self.docs[-1].read()
+                if os.path.splitext(_file)[1] == ".docx":
+
+                    self.docs.append(Parag_Model_Doc(os.path.join(_doc_dir,_file)))
+                    self.docs[-1].read()
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -176,6 +183,14 @@ class Parag_Model_Test(object):
     def __init__(self):
 
         self.questions = []
+
+    def clear(self):
+
+        for _question in self.questions:
+
+            for _answer in _question.answers:
+
+                _answer.is_selected = False
 
     def get_result(self):
 
@@ -264,6 +279,8 @@ class Parag_WDG_Desktop(QWidget):
         self.main_layout.addLayout(self.bt_layout)
         self.main_layout.addWidget(self.wdg_test)
 
+        self.wdg_test.hide()
+
         self.setLayout(self.main_layout)  
 
     def clbk_bt_test(self,state):
@@ -302,16 +319,21 @@ class Parag_WDG_Desktop_Test(QWidget):
 
     def draw_gui(self):
 
-        self.bt_next   = Parag_WDG_Small_Button( Parag_Icon("next_normal"),       Parag_Icon("next_hover"),     self.clbk_next)
-        self.bt_prev   = Parag_WDG_Small_Button( Parag_Icon("previous_normal"),   Parag_Icon("previous_hover"), self.clbk_prev)
-        self.bt_result = Parag_WDG_Small_Button( Parag_Icon("results_normal"),    Parag_Icon("result_hover"),   self.clbk_result)
-        self.bt_close  = Parag_WDG_Small_Button( Parag_Icon("close_normal"),      Parag_Icon("close_hover"),    self.clbk_close)
+        self.bt_next   = Parag_WDG_Small_Button( Parag_Icon("next_normal"),       Parag_Icon("next_hover"),     self.clbk_next , "Intrebare urmatoare")
+        self.bt_prev   = Parag_WDG_Small_Button( Parag_Icon("previous_normal"),   Parag_Icon("previous_hover"), self.clbk_prev, "Intrebarea precedenta")
+        self.bt_result = Parag_WDG_Small_Button( Parag_Icon("results_normal"),    Parag_Icon("result_hover"),   self.clbk_result, "Rezultat")
+        self.bt_close  = Parag_WDG_Small_Button( Parag_Icon("close_normal"),      Parag_Icon("close_hover"),    self.clbk_close, "Inchide")
 
+        self.bt_next.setIconSize(QSize(50,50))
+        self.bt_prev.setIconSize(QSize(50,50))
+        self.bt_result.setIconSize(QSize(50,50))
+        self.bt_close.setIconSize(QSize(50,50))
 
         self.lbl_status = Parag_WDG_Label()
 
         self.bt_layout = QHBoxLayout()
         self.bt_layout.addWidget(self.bt_prev)
+        self.bt_layout.addWidget(self.bt_close)
         self.bt_layout.addWidget(self.bt_result)
         self.bt_layout.addWidget(self.bt_next)
 
@@ -333,18 +355,37 @@ class Parag_WDG_Desktop_Test(QWidget):
     def start(self,test_type):
 
         self.test_type = test_type
-        self.bt_next.show()
-        self.bt_prev.show()
-        self.bt_result.show()
 
         self.question_number = 0
 
         if self.test_type == "learn":            
+            self.doc.test_learn.clear()
             self.wdg_question.populate(self.doc.test_learn.questions[self.question_number])
+            self.bt_next.show()
+            self.bt_close.show()
+            self.bt_result.show()
+            self.bt_prev.show()
         else:            
+            self.doc.test_exam.clear()
+            self.bt_next.show()
+            self.bt_prev.show()
+            self.bt_result.show()
+            self.get_test_questions()
             self.wdg_question.populate(self.doc.test_exam.questions[self.question_number])
 
         self.set_status()
+
+    def get_test_questions(self):
+
+        global PARAG_NUMBER_OF_TEST_QUESTIONS
+
+        if PARAG_NUMBER_OF_TEST_QUESTIONS < len(self.doc.test_learn.questions):
+
+            _questions_indexes = random.sample(range(len(self.doc.test_learn.questions)), PARAG_NUMBER_OF_TEST_QUESTIONS)
+
+            self.doc.test_exam.questions = [self.doc.test_learn.questions[_index] for _index in _questions_indexes]
+        else:
+            self.doc.test_exam.questions = self.doc.test_learn.questions
 
     def clbk_next(self,state):
 
@@ -381,7 +422,9 @@ class Parag_WDG_Desktop_Test(QWidget):
 
     def clbk_close(self,state):
 
-        self.hide()
+        self.parent.bt_test.show()
+        self.parent.bt_learn.show()
+        self.parent.wdg_test.hide()
 
     def clbk_result(self,state):
 
@@ -390,16 +433,32 @@ class Parag_WDG_Desktop_Test(QWidget):
         _total    = 0
 
         if self.test_type == "learn":
-            _total,_corect,_incorect = self.doc.test_learn.get_result()
+
+            if self.doc.test_learn.questions[self.question_number].answers[0].is_corect:
+                self.wdg_question.rd_answer_a.setStyleSheet("QCheckBox { color: green }")
+            else:
+                self.wdg_question.rd_answer_a.setStyleSheet("QCheckBox { color: red }")
+
+            if self.doc.test_learn.questions[self.question_number].answers[1].is_corect:
+                self.wdg_question.rd_answer_b.setStyleSheet("QCheckBox { color: green }")
+            else:
+                self.wdg_question.rd_answer_b.setStyleSheet("QCheckBox { color: red }")
+
+            if self.doc.test_learn.questions[self.question_number].answers[2].is_corect:
+                self.wdg_question.rd_answer_c.setStyleSheet("QCheckBox { color: green }")
+            else:
+                self.wdg_question.rd_answer_c.setStyleSheet("QCheckBox { color: red }")
+
         else:
             _total,_corect,_incorect = self.doc.test_exam.get_result()
 
-        self.lbl_status.setText("Intrebari[%s] Corecte[%s] Incorecte[%s]" % (_total,_corect,_incorect))
+            self.lbl_status.setText("Intrebari[%s] Corecte[%s] Incorecte[%s]" % (_total,_corect,_incorect))
 
-        self.bt_next.hide()
-        self.bt_prev.hide()
-        self.bt_result.hide()
-        self.wdg_question.hide()
+            self.bt_next.hide()
+            self.bt_prev.hide()
+            self.bt_result.hide()
+            self.bt_close.show()
+            self.wdg_question.hide()
 
     def set_status(self):
 
@@ -461,6 +520,11 @@ class Parag_WDG_Question(QWidget):
         self.rd_answer_c.hide()
 
     def populate(self,question):
+
+        self.rd_answer_a.setStyleSheet("QCheckBox { color: #b1b1b1 }")
+        self.rd_answer_b.setStyleSheet("QCheckBox { color: #b1b1b1 }")
+        self.rd_answer_c.setStyleSheet("QCheckBox { color: #b1b1b1 }")
+
 
         self.question = question
 
