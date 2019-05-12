@@ -477,7 +477,11 @@ PARAG_CSS = """
 				
 				QCheckBox::indicator:checked
 				{
-				    image:url(C:/Projects/ghost/SHADE/SoftwareFlashingTool/checkbox.png);
+				    color: #FFFFFF;
+				    background-color: #FFFFFF;
+				    border: 1px solid #FFFFFF;
+				    width: 9px;
+				    height: 9px;
 				}
 				
 				QCheckBox::indicator:disabled, QRadioButton::indicator:disabled

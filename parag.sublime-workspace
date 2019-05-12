@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"is",
+				"is_selected"
+			],
+			[
 				"node",
 				"node_height"
 			],
@@ -51,34 +55,7 @@
 			"file": "src/parag/parag.py",
 			"settings":
 			{
-				"buffer_size": 2322,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/parag_db/parag_db.py",
-			"settings":
-			{
-				"buffer_size": 0,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/parag_icons/parag_icons.py",
-			"settings":
-			{
-				"buffer_size": 784,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/parag_widgets/parag_widgets.py",
-			"settings":
-			{
-				"buffer_size": 6228,
+				"buffer_size": 17046,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -160,12 +137,20 @@
 		"/D/projects/paragliding/src/parag",
 		"/D/projects/paragliding/src/parag_db",
 		"/D/projects/paragliding/src/parag_icons",
-		"/D/projects/paragliding/src/parag_widgets"
+		"/D/projects/paragliding/src/parag_widgets",
+		"/D/projects/paragliding/src/parag_widgets/__pycache__"
 	],
 	"file_history":
 	[
-		"/D/projects/paragliding/src/temp2.py",
+		"/D/projects/paragliding/src/parag_icons/parag_icons.py",
+		"/D/projects/paragliding/src/parag_widgets/parag_widgets.py",
+		"/D/projects/paragliding/src/parag_widgets/parag_css.py",
+		"/D/projects/paragliding/src/parag/parag.py",
 		"/D/projects/paragliding/src/temp.py",
+		"/D/projects/paragliding/src/parag/parag_css.py",
+		"/D/projects/paragliding/src/parag/parag_model.py",
+		"/D/projects/paragliding/src/parag_db/parag_db.py",
+		"/D/projects/paragliding/src/temp2.py",
 		"/C/cygwin64/home/stefa/download/titan/utils.c",
 		"/C/cygwin64/home/stefa/download/titan/README",
 		"/C/Users/stefa/AppData/Local/Temp/_tcx/0/Secure FTP/yel_root/etc/httpd/conf.d/trac.conf",
@@ -242,7 +227,7 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -259,6 +244,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"get_result",
+			"Check",
+			"start",
+			"Parag_WDG_Desktop_Test",
+			"Parag_WDG_Desktop",
+			"populate_stack",
+			"docx",
 			"get_lockfile_path",
 			"Error creating lock file",
 			"ssl",
@@ -351,7 +343,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -360,15 +352,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2322,
+						"buffer_size": 17046,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1378,
-								1378
+								13608,
+								13608
 							]
 						],
 						"settings":
@@ -378,94 +370,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 332.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/parag_db/parag_db.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/parag_icons/parag_icons.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 784,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								149,
-								149
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 4108.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/parag_widgets/parag_widgets.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6228,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								150,
-								2
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -504,7 +412,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 96.0
+		"height": 294.0
 	},
 	"output.find_results":
 	{
