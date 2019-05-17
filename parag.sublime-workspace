@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"wdg",
+				"wdg_test"
+			],
+			[
+				"is_",
+				"is_corect"
+			],
+			[
 				"is",
 				"is_selected"
 			],
@@ -52,12 +60,25 @@
 	"buffers":
 	[
 		{
-			"file": "src/parag/parag.py",
+			"file": "src/parag/parag_doc.py",
 			"settings":
 			{
-				"buffer_size": 17046,
+				"buffer_size": 1664,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "import mammoth\n\n_path_docx =r\"d:\\projects\\paragliding\\src\\docs\\debug.docx\"\n\n_path_html =r\"d:\\projects\\paragliding\\src\\docs\\debug.html\"\n\n\nf = open(_path_docx, 'rb')\nb = open(_path_html, 'wb')\ndocument = mammoth.convert_to_html(f)\nb.write(document.value.encode('utf8'))\nf.close()\nb.close()",
+			"file": "src/parag/debug2.py",
+			"file_size": 299,
+			"file_write_time": 132023323371663526,
+			"settings":
+			{
+				"buffer_size": 287,
+				"encoding": "UTF-8",
+				"line_ending": "Windows",
+				"name": "import mammoth"
 			}
 		}
 	],
@@ -134,19 +155,19 @@
 	"expanded_folders":
 	[
 		"/D/projects/paragliding/src",
-		"/D/projects/paragliding/src/parag",
-		"/D/projects/paragliding/src/parag_db",
-		"/D/projects/paragliding/src/parag_icons",
-		"/D/projects/paragliding/src/parag_widgets",
-		"/D/projects/paragliding/src/parag_widgets/__pycache__"
+		"/D/projects/paragliding/src/parag"
 	],
 	"file_history":
 	[
+		"/D/projects/paragliding/src/parag/debug3.py",
+		"/D/projects/paragliding/src/parag/debug.py",
+		"/D/projects/paragliding/src/docs/debug.html",
+		"/D/projects/paragliding/src/parag/parag.py",
+		"/D/projects/paragliding/src/build.bat",
+		"/D/projects/paragliding/src/temp.py",
 		"/D/projects/paragliding/src/parag_icons/parag_icons.py",
 		"/D/projects/paragliding/src/parag_widgets/parag_widgets.py",
 		"/D/projects/paragliding/src/parag_widgets/parag_css.py",
-		"/D/projects/paragliding/src/parag/parag.py",
-		"/D/projects/paragliding/src/temp.py",
 		"/D/projects/paragliding/src/parag/parag_css.py",
 		"/D/projects/paragliding/src/parag/parag_model.py",
 		"/D/projects/paragliding/src/parag_db/parag_db.py",
@@ -227,7 +248,7 @@
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 23.0
 	},
 	"find_in_files":
 	{
@@ -244,6 +265,15 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"tree",
+			"self.context",
+			"setCurrentIndex",
+			"get_docs",
+			"wdg_question",
+			"lbl_result",
+			"docs",
+			"TODO",
+			"QCheckBox",
 			"get_result",
 			"Check",
 			"start",
@@ -348,32 +378,59 @@
 			[
 				{
 					"buffer": 0,
-					"file": "src/parag/parag.py",
+					"file": "src/parag/parag_doc.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 17046,
+						"buffer_size": 1664,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13608,
-								13608
+								1111,
+								1111
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 4108.0,
+						"translation.y": 50.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/parag/debug2.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 287,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								267,
+								229
+							]
+						],
+						"settings":
+						{
+							"auto_name": "import mammoth",
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
