@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"a",
+				"answers"
+			],
+			[
+				"_ques",
+				"_question_interpreted"
+			],
+			[
 				"wdg",
 				"wdg_test"
 			],
@@ -60,25 +68,12 @@
 	"buffers":
 	[
 		{
-			"file": "src/parag/parag_doc.py",
+			"file": "src/parag/parag.py",
 			"settings":
 			{
-				"buffer_size": 1664,
+				"buffer_size": 23143,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "import mammoth\n\n_path_docx =r\"d:\\projects\\paragliding\\src\\docs\\debug.docx\"\n\n_path_html =r\"d:\\projects\\paragliding\\src\\docs\\debug.html\"\n\n\nf = open(_path_docx, 'rb')\nb = open(_path_html, 'wb')\ndocument = mammoth.convert_to_html(f)\nb.write(document.value.encode('utf8'))\nf.close()\nb.close()",
-			"file": "src/parag/debug2.py",
-			"file_size": 299,
-			"file_write_time": 132023323371663526,
-			"settings":
-			{
-				"buffer_size": 287,
-				"encoding": "UTF-8",
-				"line_ending": "Windows",
-				"name": "import mammoth"
 			}
 		}
 	],
@@ -159,9 +154,11 @@
 	],
 	"file_history":
 	[
+		"/D/projects/paragliding/src/parag/parag_doc.py",
+		"/D/projects/paragliding/src/docs/debug.html",
+		"/D/projects/paragliding/src/parag/debug2.py",
 		"/D/projects/paragliding/src/parag/debug3.py",
 		"/D/projects/paragliding/src/parag/debug.py",
-		"/D/projects/paragliding/src/docs/debug.html",
 		"/D/projects/paragliding/src/parag/parag.py",
 		"/D/projects/paragliding/src/build.bat",
 		"/D/projects/paragliding/src/temp.py",
@@ -248,7 +245,7 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -265,6 +262,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"__get_questions",
 			"tree",
 			"self.context",
 			"setCurrentIndex",
@@ -378,59 +376,32 @@
 			[
 				{
 					"buffer": 0,
-					"file": "src/parag/parag_doc.py",
+					"file": "src/parag/parag.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1664,
+						"buffer_size": 23143,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1111,
-								1111
+								21599,
+								21599
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 50.0,
+						"translation.y": 1396.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/parag/debug2.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 287,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								267,
-								229
-							]
-						],
-						"settings":
-						{
-							"auto_name": "import mammoth",
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -469,7 +440,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 294.0
+		"height": 410.0
 	},
 	"output.find_results":
 	{

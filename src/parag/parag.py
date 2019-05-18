@@ -12,17 +12,24 @@ except:
 _path = os.path.split(os.path.split(os.path.abspath("__file__"))[0])[0]
 sys.path.append(_path)
 
-from docx                                                              import Document
-from PyQt5.QtCore                                                      import *
-from PyQt5.QtGui                                                       import *
-from PyQt5.QtWidgets                                                   import * 
-from parag_widgets.parag_widgets                                       import *
-from parag_widgets.parag_css                                           import *
-from parag_icons.parag_icons                                           import Parag_Icon
+from docx                         import Document
+from PyQt5.QtCore                 import *
+from PyQt5.QtGui                  import *
+from PyQt5.QtWidgets              import * 
+from parag_widgets.parag_widgets  import *
+from parag_widgets.parag_css      import *
+from parag_icons.parag_icons      import Parag_Icon
+from mammoth                      import convert_to_html
+from bs4                          import BeautifulSoup
+from bs4.element                  import NavigableString
+from pprint                       import pprint
+
+"""*************************************************************************************************
+****************************************************************************************************
+*************************************************************************************************"""
 
 PARAG_NUMBER_OF_TEST_QUESTIONS = 10
 PARAG_MIN_CORECT_QUESTIONS     = 8
-
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -168,19 +175,21 @@ class Parag_Model_Doc(object):
 
     def read(self):
 
-        _q = Parag_Model_Question("Care este riscul asociat zborului cu acceleratorul actionat")
-        _q.answers.append(Parag_Model_Answer("risc marit de inchideri ale voalurii",True))
-        _q.answers.append(Parag_Model_Answer("risc marit de angajare in limita de viteza",False))
-        _q.answers.append(Parag_Model_Answer("nici un risc, acest regim de zbor prezinta maximum de siguranta",False))
+        _parser = Parag_Docx_Interpretor(self.path)
 
-        self.test_learn.questions.append(_q)
+        _questions = _parser.read()
 
-        _q = Parag_Model_Question("In timpul unui viraj strans ")
-        _q.answers.append(Parag_Model_Answer("viteza de angajare creste",True))
-        _q.answers.append(Parag_Model_Answer("viteza de angajare scade",False))
-        _q.answers.append(Parag_Model_Answer("viteza de angajare ramane neschimbata",False))
+        for _question in _questions:
 
-        self.test_learn.questions.append(_q)
+            _q        = Parag_Model_Question(_question["text"])
+            _q.number = _question["number"]
+            _q.image  = _question["image"]
+
+            for _answer in _question["answers"]:
+
+                _q.answers.append(Parag_Model_Answer(_answer["text"],_answer["status"]))
+
+            self.test_learn.questions.append(_q)       
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -239,6 +248,8 @@ class Parag_Model_Question(object):
     def __init__(self,text):
 
         self.text    = text
+        self.number  = -1
+        self.image   = ""
         self.answers = []
 
 """*************************************************************************************************
@@ -593,6 +604,104 @@ class Parag_WDG_Question(QWidget):
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
+class Parag_Docx_Interpretor(object):
+
+
+    def __init__(self,path):
+
+        self.path_doc  = path
+        self.raw_data  = ""
+
+    def read(self):
+
+        _questions = []
+
+        self.__convert()
+
+        _html = BeautifulSoup(self.raw_data,'html.parser')
+
+        _questions_obj = self.__get_questions(_html)    
+
+        _count = 1
+
+        for _question_obj in _questions_obj:
+
+            _question = self.__interpret_question(_question_obj,_count)
+            _count += 1
+            _questions.append(_question)
+
+        #pprint(_questions)
+
+        return _questions
+
+    def __interpret_question(self,question_obj,_count):
+
+        _imgs = question_obj.find_all("img")
+
+        _question = {"text"   : "","number" : _count,"image"  : "","answers": [],}
+
+        _question["text"]   = str(question_obj.contents[0])
+
+        _answers_obj = question_obj.find_all("li")
+
+        for _answer_obj in _answers_obj:
+
+            _answer = self.__interpret_answer(_answer_obj)
+
+            _question["answers"].append(_answer)
+
+        return _question
+
+    def __interpret_answer(self,answer_obj):
+
+        _answer = {"text":"","status":False}
+
+        _content = answer_obj.contents[0]
+
+        if isinstance(_content,NavigableString):
+            _answer["text"] = str(_content)
+        else:
+            if _content.name == "strong" or _content.name == "em":
+
+                _answer["text"]   = _content.contents[0]
+                _answer["status"] = True
+
+        return _answer
+            
+    def __get_questions(self,html):
+
+        _questions = []
+
+        print(html.name)
+        print(html.findChildren())
+
+        _html_lis = html.find_all('li')
+
+        for _html_li in _html_lis:
+
+            _inner_lis = _html_li.find_all("li")
+
+
+
+            if len(_inner_lis) > 0:
+
+                _questions.append(_html_li)
+
+        return _questions
+
+    def __convert(self):
+
+        _doc   = open(self.path_doc, 'rb')
+        _html  = open(r"d:\projects\paragliding\src\docs\debug.html",'wb') 
+        self.raw_data  = convert_to_html(_doc)
+        self.raw_data  = self.raw_data.value
+        _html.write(self.raw_data.encode('utf8'))
+        _doc.close()
+        _html.close()
+
+"""*************************************************************************************************
+****************************************************************************************************
+*************************************************************************************************"""
 class Parag(object):
 
     def __init__(self):
@@ -610,5 +719,8 @@ class Parag(object):
 *************************************************************************************************"""
 if __name__ == "__main__":
 
-    Parag()
+    # Parag()
 
+    _parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\debug.docx")
+
+    _parser.read()
