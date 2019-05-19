@@ -23,12 +23,14 @@ from mammoth                      import convert_to_html
 from bs4                          import BeautifulSoup
 from bs4.element                  import NavigableString
 from pprint                       import pprint
+from datetime                     import datetime
+from xhtml2pdf                    import pisa
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
 
-PARAG_NUMBER_OF_TEST_QUESTIONS = 10
+PARAG_NUMBER_OF_TEST_QUESTIONS = 2
 PARAG_MIN_CORECT_QUESTIONS     = 8
 
 """*************************************************************************************************
@@ -147,8 +149,6 @@ class Parag_UI(QMainWindow):
                     self.docs.append(Parag_Model_Doc(os.path.join(_doc_dir,_file)))
                     self.docs[-1].read()
 
-            self.docs.append(Parag_Model_Doc(r"docs\toate_domeniile.docx"))
-
             for _doc in self.docs:
 
                 self.docs[-1].test_learn.questions += _doc.test_learn.questions
@@ -164,6 +164,7 @@ class Parag_Model_Doc(object):
         self.name       = self.__get_name()
         self.test_learn = Parag_Model_Test()
         self.test_exam  = Parag_Model_Test()
+        self.parser     = None 
 
     def __get_name(self):
 
@@ -175,15 +176,15 @@ class Parag_Model_Doc(object):
 
     def read(self):
 
-        _parser = Parag_Docx_Interpretor(self.path)
+        self.parser = Parag_Docx_Interpretor(self.path)
 
-        _questions = _parser.read()
+        _questions = self.parser.read()
 
         for _question in _questions:
 
             _q        = Parag_Model_Question(_question["text"])
             _q.number = _question["number"]
-            _q.image  = _question["image"]
+            _q.image  = _question["images"]
 
             for _answer in _question["answers"]:
 
@@ -278,20 +279,25 @@ class Parag_WDG_Desktop(QWidget):
 
     def draw_gui(self):
 
-        self.bt_test  = Parag_WDG_Button("Test",   Parag_Icon("test_normal"),  Parag_Icon("test_hover"),  "#606060")
-        self.bt_learn = Parag_WDG_Button("Invata", Parag_Icon("learn_normal"), Parag_Icon("learn_hover"), "#606060")
+        self.bt_test  = Parag_WDG_Button("Test",   Parag_Icon("test_normal"),   Parag_Icon("test_hover"),  "#606060")
+        self.bt_learn = Parag_WDG_Button("Invata", Parag_Icon("learn_normal"),  Parag_Icon("learn_hover"), "#606060")
+        self.bt_gen   = Parag_WDG_Button("Genereaza Test", Parag_Icon("generate_test"), Parag_Icon("generate_test"), "#606060")
+        
 
         self.bt_test.setIconSize(QSize(100,100))
         self.bt_learn.setIconSize(QSize(100,100))
+        self.bt_gen.setIconSize(QSize(100,100))
 
         self.bt_test.clicked.connect(self.clbk_bt_test)
         self.bt_learn.clicked.connect(self.clbk_bt_learn)
+        self.bt_gen.clicked.connect(self.clbk_bt_gen)
 
         self.wdg_test = Parag_WDG_Desktop_Test(self,self.doc)
 
         self.bt_layout = QHBoxLayout()
         self.bt_layout.addWidget(self.bt_learn)
         self.bt_layout.addWidget(self.bt_test)
+        self.bt_layout.addWidget(self.bt_gen)
 
         self.main_layout = QVBoxLayout()
         self.main_layout.addLayout(self.bt_layout)
@@ -318,6 +324,10 @@ class Parag_WDG_Desktop(QWidget):
         self.bt_learn.hide()
 
         self.wdg_test.start("learn")
+
+    def clbk_bt_gen(self,state):
+
+        self.doc.parser.generate()
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -538,6 +548,7 @@ class Parag_WDG_Question(QWidget):
         self.rd_answer_b  = Parag_WDG_CheckBox("")
         self.rd_answer_c  = Parag_WDG_CheckBox("")
 
+
         self.rd_answer_a.stateChanged.connect(self.clbk_answer_a)
         self.rd_answer_b.stateChanged.connect(self.clbk_answer_b)
         self.rd_answer_c.stateChanged.connect(self.clbk_answer_c)
@@ -616,9 +627,7 @@ class Parag_Docx_Interpretor(object):
 
         _questions = []
 
-        self.__convert()
-
-        _html = BeautifulSoup(self.raw_data,'html.parser')
+        _html = self.__get_html()
 
         _questions_obj = self.__get_questions(_html)    
 
@@ -634,13 +643,43 @@ class Parag_Docx_Interpretor(object):
 
         return _questions
 
+    def generate(self):
+
+        _html = self.__get_html()
+
+        _html_lis = _html.ol.find_all('li',recursive=False)
+
+        _questions_indexes = random.sample(range(len(_html_lis)), PARAG_NUMBER_OF_TEST_QUESTIONS)
+
+        for _index in range(len(_html_lis)):
+
+            if _index not in _questions_indexes:
+
+                _html_lis[_index].decompose()
+
+        _report_path = self.__get_report_path()
+
+        _html = _html.prettify("utf-8")
+
+        with open(_report_path, "wb") as _generated_test:
+
+            _pdf = pisa.pisaDocument(_html, dest=_generated_test) 
+
+    def __get_html(self):
+
+        self.__convert()
+
+        _html = BeautifulSoup(self.raw_data,'html.parser')
+
+        return _html
+
     def __interpret_question(self,question_obj,_count):
 
-        _imgs = question_obj.find_all("img")
 
-        _question = {"text"   : "","number" : _count,"image"  : "","answers": [],}
+        _question = {"text"   : "","number" : _count,"images"  : [],"answers": [],}
 
-        _question["text"]   = str(question_obj.contents[0])
+        _question["images"]  = self.__interpret_questin_image(question_obj)
+        _question["text"]    = str(question_obj.contents[0])
 
         _answers_obj = question_obj.find_all("li")
 
@@ -651,6 +690,20 @@ class Parag_Docx_Interpretor(object):
             _question["answers"].append(_answer)
 
         return _question
+
+    def __interpret_questin_image(self,question_obj):
+
+        _images = []
+
+        _imgs = question_obj.find_all("img")
+
+        if len(_imgs) > 0:
+
+            for _img in _imgs:
+
+                _images.append(_img["src"])
+
+        return _images
 
     def __interpret_answer(self,answer_obj):
 
@@ -672,22 +725,27 @@ class Parag_Docx_Interpretor(object):
 
         _questions = []
 
-        print(html.name)
-        print(html.findChildren())
-
         _html_lis = html.find_all('li')
 
         for _html_li in _html_lis:
 
             _inner_lis = _html_li.find_all("li")
 
-
-
             if len(_inner_lis) > 0:
 
                 _questions.append(_html_li)
 
         return _questions
+
+    def __get_report_path(self):
+
+        _timestamp = str(datetime.now()).replace(":","_").replace(" ","_").replace("-","_").replace(".","_")
+
+        _dir, _file = os.path.split(self.path_doc)
+
+        _path = os.path.join(_dir,"%s_%s.pdf" % (os.path.splitext(_file)[0],_timestamp))
+
+        return _path
 
     def __convert(self):
 
@@ -719,8 +777,8 @@ class Parag(object):
 *************************************************************************************************"""
 if __name__ == "__main__":
 
-    # Parag()
+    #Parag()
 
     _parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\debug.docx")
 
-    _parser.read()
+    _parser.generate()

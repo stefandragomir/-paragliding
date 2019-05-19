@@ -71,7 +71,7 @@
 			"file": "src/parag/parag.py",
 			"settings":
 			{
-				"buffer_size": 23143,
+				"buffer_size": 23195,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -154,8 +154,8 @@
 	],
 	"file_history":
 	[
-		"/D/projects/paragliding/src/parag/parag_doc.py",
 		"/D/projects/paragliding/src/docs/debug.html",
+		"/D/projects/paragliding/src/parag/parag_doc.py",
 		"/D/projects/paragliding/src/parag/debug2.py",
 		"/D/projects/paragliding/src/parag/debug3.py",
 		"/D/projects/paragliding/src/parag/debug.py",
@@ -262,6 +262,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"<li>",
 			"__get_questions",
 			"tree",
 			"self.context",
@@ -380,15 +381,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 23143,
+						"buffer_size": 23195,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								21599,
-								21599
+								21858,
+								21858
 							]
 						],
 						"settings":
@@ -398,7 +399,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1396.0,
+						"translation.y": 1726.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
