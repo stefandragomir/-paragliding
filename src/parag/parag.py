@@ -25,6 +25,7 @@ from bs4.element                  import NavigableString
 from pprint                       import pprint
 from datetime                     import datetime
 from xhtml2pdf                    import pisa
+from docx                         import Document
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -645,25 +646,29 @@ class Parag_Docx_Interpretor(object):
 
     def generate(self):
 
-        _html = self.__get_html()
+        _document = Document(self.path_doc)
 
-        _html_lis = _html.ol.find_all('li',recursive=False)
+        for _paragraph in _document.paragraphs:
 
-        _questions_indexes = random.sample(range(len(_html_lis)), PARAG_NUMBER_OF_TEST_QUESTIONS)
+            if _paragraph._p.pPr != None:
 
-        for _index in range(len(_html_lis)):
+                if _paragraph._p.pPr.numPr != None:
 
-            if _index not in _questions_indexes:
+                    print(_paragraph.text)
 
-                _html_lis[_index].decompose()
+                    print("----------")
 
-        _report_path = self.__get_report_path()
+                    self.delete_paragraph(_paragraph)
 
-        _html = _html.prettify("utf-8")
+        _document.save(self.__get_report_path())
 
-        with open(_report_path, "wb") as _generated_test:
+    def delete_paragraph(self,paragraph):
 
-            _pdf = pisa.pisaDocument(_html, dest=_generated_test) 
+        p = paragraph._element
+
+        p.getparent().remove(p)
+
+        p._p = p._element = None
 
     def __get_html(self):
 
@@ -743,19 +748,16 @@ class Parag_Docx_Interpretor(object):
 
         _dir, _file = os.path.split(self.path_doc)
 
-        _path = os.path.join(_dir,"%s_%s.pdf" % (os.path.splitext(_file)[0],_timestamp))
+        _path = os.path.join(_dir,"%s_%s.docx" % (os.path.splitext(_file)[0],_timestamp))
 
         return _path
 
     def __convert(self):
 
         _doc   = open(self.path_doc, 'rb')
-        _html  = open(r"d:\projects\paragliding\src\docs\debug.html",'wb') 
         self.raw_data  = convert_to_html(_doc)
         self.raw_data  = self.raw_data.value
-        _html.write(self.raw_data.encode('utf8'))
         _doc.close()
-        _html.close()
 
 """*************************************************************************************************
 ****************************************************************************************************
