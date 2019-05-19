@@ -34,6 +34,17 @@ from docx                         import Document
 PARAG_NUMBER_OF_TEST_QUESTIONS = 2
 PARAG_MIN_CORECT_QUESTIONS     = 8
 
+PARAG_FILES = {
+                "cunoasterea_aeronavei.docx":  3, 
+                "legislatie.docx":             3,
+                "meteorologie.docx":           3,
+                "navigatie.docx":              3,
+                "performante_umane.docx":      3,
+                "principiile_zborului.docx":   3,
+                "proceduri_operationale.docx": 3,
+                "debug.docx":                  4,
+              }
+
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
@@ -136,6 +147,8 @@ class Parag_UI(QMainWindow):
 
     def get_docs(self):
 
+        global PARAG_FILES
+
         self.docs = []
 
         _doc_dir = os.path.split(os.path.abspath("__file__"))[0]
@@ -145,7 +158,7 @@ class Parag_UI(QMainWindow):
 
             for _file in os.listdir(_doc_dir):
 
-                if os.path.splitext(_file)[1] == ".docx":
+                if _file in list(PARAG_FILES.keys()):
 
                     self.docs.append(Parag_Model_Doc(os.path.join(_doc_dir,_file)))
                     self.docs[-1].read()
@@ -618,7 +631,6 @@ class Parag_WDG_Question(QWidget):
 *************************************************************************************************"""
 class Parag_Docx_Interpretor(object):
 
-
     def __init__(self,path):
 
         self.path_doc  = path
@@ -646,23 +658,54 @@ class Parag_Docx_Interpretor(object):
 
     def generate(self):
 
-        _document = Document(self.path_doc)
+        global PARAG_FILES
 
+        _file_name = os.path.split(self.path_doc)[1]
+
+        _nr_of_answers = PARAG_FILES[_file_name]
+
+        _lst_nr_paragraphs = []
+
+        _document = Document(self.path_doc)
+`
         for _paragraph in _document.paragraphs:
 
             if _paragraph._p.pPr != None:
 
                 if _paragraph._p.pPr.numPr != None:
 
-                    print(_paragraph.text)
+                    _lst_nr_paragraphs.append(_paragraph)
 
-                    print("----------")
+        _nr_of_questions = len(_lst_nr_paragraphs) // _nr_of_answers + 1
 
-                    self.delete_paragraph(_paragraph)
+        print(_nr_of_questions)
+
+        _questions_indexes = random.sample(range(_nr_of_questions), PARAG_NUMBER_OF_TEST_QUESTIONS)
+
+        _count = 0
+
+        for _question in self.__chunks(_lst_nr_paragraphs,_nr_of_answers + 1):
+
+            if _count not in _questions_indexes:
+
+                for _sub_paragraph in _question:
+
+                    self.__delete_paragraph(_sub_paragraph)
+
+            else:
+                _question[0].text = "[%s] %s" % (_count,_question[0].text)
+
+            _count += 1
 
         _document.save(self.__get_report_path())
 
-    def delete_paragraph(self,paragraph):
+    def __chunks(self,lst, size):
+
+        for _index in range(0, len(lst), size):
+
+            yield lst[_index:_index + size]
+
+    def __delete_paragraph(self,paragraph):
 
         p = paragraph._element
 
@@ -746,7 +789,13 @@ class Parag_Docx_Interpretor(object):
 
         _timestamp = str(datetime.now()).replace(":","_").replace(" ","_").replace("-","_").replace(".","_")
 
-        _dir, _file = os.path.split(self.path_doc)
+        _dir,_file = os.path.split(self.path_doc)
+
+        _dir  = os.path.join(os.path.abspath(_dir), "parag_tests")
+
+        if not os.path.exists(_dir):
+
+            os.makedirs(_dir)
 
         _path = os.path.join(_dir,"%s_%s.docx" % (os.path.splitext(_file)[0],_timestamp))
 
@@ -781,6 +830,6 @@ if __name__ == "__main__":
 
     #Parag()
 
-    _parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\debug.docx")
+    _parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\cunoasterea_aeronavei.docx")
 
     _parser.generate()
