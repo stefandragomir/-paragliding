@@ -35,14 +35,14 @@ PARAG_NUMBER_OF_TEST_QUESTIONS = 2
 PARAG_MIN_CORECT_QUESTIONS     = 8
 
 PARAG_FILES = {
-                "cunoasterea_aeronavei.docx":  3, 
-                "legislatie.docx":             3,
-                "meteorologie.docx":           3,
-                "navigatie.docx":              3,
-                "performante_umane.docx":      3,
-                "principiile_zborului.docx":   3,
-                "proceduri_operationale.docx": 3,
-                "debug.docx":                  4,
+                "cunoasterea_aeronavei.docx":  None, 
+                "legislatie.docx":             None,
+                "meteorologie.docx":           None,
+                "navigatie.docx":              None,
+                "performante_umane.docx":      None,
+                "principiile_zborului.docx":   None,
+                "proceduri_operationale.docx": None,
+                "debug.docx":                  None,
               }
 
 """*************************************************************************************************
@@ -660,42 +660,54 @@ class Parag_Docx_Interpretor(object):
 
         global PARAG_FILES
 
-        _file_name = os.path.split(self.path_doc)[1]
-
-        _nr_of_answers = PARAG_FILES[_file_name]
-
-        _lst_nr_paragraphs = []
+        _file_name            = os.path.split(self.path_doc)[1]
+        _questions_paragraphs = []
 
         _document = Document(self.path_doc)
-`
+
         for _paragraph in _document.paragraphs:
 
             if _paragraph._p.pPr != None:
 
                 if _paragraph._p.pPr.numPr != None:
 
-                    _lst_nr_paragraphs.append(_paragraph)
+                    if "Q:" == _paragraph.text[0:2]:
 
-        _nr_of_questions = len(_lst_nr_paragraphs) // _nr_of_answers + 1
+                        _questions_paragraphs.append([_paragraph])
+                    else:
+                        _questions_paragraphs[-1].append(_paragraph)
 
-        print(_nr_of_questions)
+        _nr_of_questions = len(_questions_paragraphs)
 
         _questions_indexes = random.sample(range(_nr_of_questions), PARAG_NUMBER_OF_TEST_QUESTIONS)
 
         _count = 0
 
-        for _question in self.__chunks(_lst_nr_paragraphs,_nr_of_answers + 1):
+        for _list in _questions_paragraphs:
 
             if _count not in _questions_indexes:
-
-                for _sub_paragraph in _question:
-
-                    self.__delete_paragraph(_sub_paragraph)
-
+                for _paragraph in _list:
+                    self.__delete_paragraph(_paragraph)
             else:
-                _question[0].text = "[%s] %s" % (_count,_question[0].text)
+                _list[0].text = "[%s] %s" % (_count,_list[0].text[2:])
 
             _count += 1
+        
+
+        # _count = 0
+
+        # for _question in self.__chunks(_lst_nr_paragraphs,_nr_of_answers + 1):
+
+        #     if _count not in _questions_indexes:
+
+        #         for _sub_paragraph in _question:
+
+        #             self.__delete_paragraph(_sub_paragraph)
+
+        #     else:
+        #         _question[0].text = "[%s] %s" % (_count,_question[0].text)
+
+        #     _count += 1
 
         _document.save(self.__get_report_path())
 
@@ -830,6 +842,6 @@ if __name__ == "__main__":
 
     #Parag()
 
-    _parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\cunoasterea_aeronavei.docx")
+    _parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\debug.docx")
 
     _parser.generate()
