@@ -31,7 +31,7 @@ from docx                         import Document
 ****************************************************************************************************
 *************************************************************************************************"""
 
-PARAG_NUMBER_OF_TEST_QUESTIONS = 2
+PARAG_NUMBER_OF_TEST_QUESTIONS = 10
 PARAG_MIN_CORECT_QUESTIONS     = 8
 
 PARAG_FILES = {
@@ -667,12 +667,18 @@ class Parag_Docx_Interpretor(object):
 
         for _paragraph in _document.paragraphs:
 
+            for _run in _paragraph.runs:
+                _run.bold = False
+                        
+            if _paragraph.text.strip() == "":
+
+                self.__delete_paragraph(_paragraph)
+
             if _paragraph._p.pPr != None:
 
                 if _paragraph._p.pPr.numPr != None:
 
                     if "Q:" == _paragraph.text[0:2]:
-
                         _questions_paragraphs.append([_paragraph])
                     else:
                         _questions_paragraphs[-1].append(_paragraph)
@@ -689,25 +695,10 @@ class Parag_Docx_Interpretor(object):
                 for _paragraph in _list:
                     self.__delete_paragraph(_paragraph)
             else:
-                _list[0].text = "[%s] %s" % (_count,_list[0].text[2:])
+                _list[-1].text = _list[-1].text + "\n"
+                _list[0].text  = "[%s] %s" % (_count,_list[0].text[2:])
 
             _count += 1
-        
-
-        # _count = 0
-
-        # for _question in self.__chunks(_lst_nr_paragraphs,_nr_of_answers + 1):
-
-        #     if _count not in _questions_indexes:
-
-        #         for _sub_paragraph in _question:
-
-        #             self.__delete_paragraph(_sub_paragraph)
-
-        #     else:
-        #         _question[0].text = "[%s] %s" % (_count,_question[0].text)
-
-        #     _count += 1
 
         _document.save(self.__get_report_path())
 
@@ -842,6 +833,8 @@ if __name__ == "__main__":
 
     #Parag()
 
-    _parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\debug.docx")
+    #_parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\proceduri_operationale.docx")
 
+    _parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\navigatie.docx")
+    
     _parser.generate()
