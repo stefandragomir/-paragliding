@@ -26,6 +26,10 @@ from pprint                       import pprint
 from datetime                     import datetime
 from xhtml2pdf                    import pisa
 from docx                         import Document
+from docx.enum.text               import WD_BREAK
+from docx.enum.style              import WD_STYLE_TYPE
+from docx.oxml                    import OxmlElement
+from docx.oxml.ns                 import qn
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -685,9 +689,13 @@ class Parag_Docx_Interpretor(object):
 
         _nr_of_questions = len(_questions_paragraphs)
 
+        print("number of questions: %s" % (_nr_of_questions,))
+
         _questions_indexes = random.sample(range(_nr_of_questions), PARAG_NUMBER_OF_TEST_QUESTIONS)
 
         _count = 0
+
+        _documentation_indexes = []
 
         for _list in _questions_paragraphs:
 
@@ -696,11 +704,92 @@ class Parag_Docx_Interpretor(object):
                     self.__delete_paragraph(_paragraph)
             else:
                 _list[-1].text = _list[-1].text + "\n"
-                _list[0].text  = "[%s] %s" % (_count,_list[0].text[2:])
+                _list[0].text  = "%s" % (_list[0].text[2:],)
+                _documentation_indexes.append(_count)
 
             _count += 1
 
+        self.__generate_table(_document,_questions_paragraphs,_documentation_indexes)
+
         _document.save(self.__get_report_path())
+
+    def __generate_table(self,document,questions,documentation_indexes):
+
+        document.add_page_break()
+
+        _table = document.add_table(rows=11, cols=4)
+
+        _table.cell(0, 0).text = "Numar Intrebare Test"
+        self.set_cell_border(
+                                _table.cell(0, 0),
+                                top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+        _table.cell(0, 1).text = "Numar Intrebare Documentatie"
+        self.set_cell_border(
+                                _table.cell(0, 1),
+                                top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+        _table.cell(0, 2).text = "Corect"
+        self.set_cell_border(
+                                _table.cell(0, 2),
+                                top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+        _table.cell(0, 3).text = "Incorect"
+        self.set_cell_border(
+                                _table.cell(0, 3),
+                                top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+        for _index in range(1,11):
+
+            _table.cell(_index, 0).text = str(_index)  
+
+            self.set_cell_border(
+                                    _table.cell(_index, 0),
+                                    top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+        for _index in range(1,11):
+
+            _table.cell(_index, 1).text = str(documentation_indexes[_index - 1])  
+
+            self.set_cell_border(
+                                    _table.cell(_index, 1),
+                                    top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+        for _index in range(1,11):
+
+            self.set_cell_border(
+                                    _table.cell(_index, 2),
+                                    top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+        for _index in range(1,11):
+
+            self.set_cell_border(
+                                    _table.cell(_index, 3),
+                                    top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
 
     def __chunks(self,lst, size):
 
@@ -811,6 +900,45 @@ class Parag_Docx_Interpretor(object):
         self.raw_data  = self.raw_data.value
         _doc.close()
 
+    def set_cell_border(sefl, cell, **kwargs):
+        """
+        Set cell`s border
+        Usage:
+
+        set_cell_border(
+            cell,
+            top={"sz": 12, "val": "single", "color": "#FF0000", "space": "0"},
+            bottom={"sz": 12, "color": "#00FF00", "val": "single"},
+            start={"sz": 24, "val": "dashed", "shadow": "true"},
+            end={"sz": 12, "val": "dashed"},
+        )
+        """
+        tc = cell._tc
+        tcPr = tc.get_or_add_tcPr()
+
+        # check for tag existnace, if none found, then create one
+        tcBorders = tcPr.first_child_found_in("w:tcBorders")
+        if tcBorders is None:
+            tcBorders = OxmlElement('w:tcBorders')
+            tcPr.append(tcBorders)
+
+        # list over all available tags
+        for edge in ('start', 'top', 'end', 'bottom', 'insideH', 'insideV'):
+            edge_data = kwargs.get(edge)
+            if edge_data:
+                tag = 'w:{}'.format(edge)
+
+                # check for tag existnace, if none found, then create one
+                element = tcBorders.find(qn(tag))
+                if element is None:
+                    element = OxmlElement(tag)
+                    tcBorders.append(element)
+
+                # looks like order of attributes is important
+                for key in ["sz", "val", "color", "space", "shadow"]:
+                    if key in edge_data:
+                        element.set(qn('w:{}'.format(key)), str(edge_data[key]))
+
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
@@ -833,8 +961,8 @@ if __name__ == "__main__":
 
     #Parag()
 
-    #_parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\proceduri_operationale.docx")
+    _parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\proceduri_operationale.docx")
 
-    _parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\navigatie.docx")
+    #_parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\navigatie.docx")
     
     _parser.generate()
