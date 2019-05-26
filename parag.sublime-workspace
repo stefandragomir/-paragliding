@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"_q",
+				"_question"
+			],
+			[
 				"a",
 				"answers"
 			],
@@ -71,7 +75,7 @@
 			"file": "src/parag/parag.py",
 			"settings":
 			{
-				"buffer_size": 23195,
+				"buffer_size": 32930,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -105,16 +109,24 @@
 		"selected_items":
 		[
 			[
-				"hex",
-				"HexViewer: Toggle Hex View"
+				"indent",
+				"IndentX: Indent"
 			],
 			[
-				"indent",
-				"Indent XML"
+				"inden",
+				"IndentX: Indent"
 			],
 			[
 				"install",
 				"Package Control: Install Package"
+			],
+			[
+				"set syntax xml",
+				"Set Syntax: XML"
+			],
+			[
+				"hex",
+				"HexViewer: Toggle Hex View"
 			],
 			[
 				"set syntax json",
@@ -150,19 +162,20 @@
 	"expanded_folders":
 	[
 		"/D/projects/paragliding/src",
-		"/D/projects/paragliding/src/parag"
+		"/D/projects/paragliding/src/parag",
+		"/D/projects/paragliding/src/parag_icons"
 	],
 	"file_history":
 	[
-		"/D/projects/paragliding/src/docs/debug.html",
-		"/D/projects/paragliding/src/parag/parag_doc.py",
 		"/D/projects/paragliding/src/parag/debug2.py",
-		"/D/projects/paragliding/src/parag/debug3.py",
 		"/D/projects/paragliding/src/parag/debug.py",
+		"/D/projects/paragliding/src/docs/debug.html",
+		"/D/projects/paragliding/src/parag_icons/parag_icons.py",
+		"/D/projects/paragliding/src/parag/parag_doc.py",
+		"/D/projects/paragliding/src/parag/debug3.py",
 		"/D/projects/paragliding/src/parag/parag.py",
 		"/D/projects/paragliding/src/build.bat",
 		"/D/projects/paragliding/src/temp.py",
-		"/D/projects/paragliding/src/parag_icons/parag_icons.py",
 		"/D/projects/paragliding/src/parag_widgets/parag_widgets.py",
 		"/D/projects/paragliding/src/parag_widgets/parag_css.py",
 		"/D/projects/paragliding/src/parag/parag_css.py",
@@ -245,7 +258,7 @@
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 23.0
 	},
 	"find_in_files":
 	{
@@ -262,6 +275,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"OxmlElement",
+			"WD_BREAK",
+			"oxml",
+			"__delete_paragraph",
 			"<li>",
 			"__get_questions",
 			"tree",
@@ -381,15 +398,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 23195,
+						"buffer_size": 32930,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								21858,
-								21858
+								32803,
+								32803
 							]
 						],
 						"settings":
@@ -399,7 +416,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1726.0,
+						"translation.y": 3354.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -441,7 +458,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 410.0
+		"height": 252.0
 	},
 	"output.find_results":
 	{

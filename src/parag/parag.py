@@ -37,6 +37,9 @@ from docx.oxml.ns                 import qn
 
 PARAG_NUMBER_OF_TEST_QUESTIONS = 10
 PARAG_MIN_CORECT_QUESTIONS     = 8
+PARAG_TAG_QUESTION             = "[@_Q]"
+PARAG_TAG_ANSWER               = "[@_A]:"           
+PARAG_TAG_ANSWER_CORRECT       = "[@_AX]:"   
 
 PARAG_FILES = {
                 "cunoasterea_aeronavei.docx":  None, 
@@ -664,56 +667,113 @@ class Parag_Docx_Interpretor(object):
 
         global PARAG_FILES
 
-        _file_name            = os.path.split(self.path_doc)[1]
-        _questions_paragraphs = []
+        _questions       = []
+        _nr_of_questions = 1
+        _started         = False
 
         _document = Document(self.path_doc)
 
+        self.__remove_empty_paragrphs_from_document(_document)
+
         for _paragraph in _document.paragraphs:
 
+            if self.__is_paragraph_question(_paragraph):
+
+                _started = True
+                _questions.append(
+                                    {
+                                        _nr_of_questions: {
+                                                            "question"        : _paragraph,
+                                                            "answers"         : [],
+                                                            "answers_correct" : [],
+                                                            "others"          : [],
+                                                          }
+                                    }
+                                )
+                _nr_of_questions += 1
+            else:
+
+                if self.__is_paragraph_answer(_paragraph):
+                    _questions[-1][_nr_of_questions - 1]["answers"].append(_paragraph)
+                else:
+                    if self.__is_paragraph_answer_correct(_paragraph):
+                        _questions[-1][_nr_of_questions - 1]["answers_correct"].append(_paragraph)
+                    else:
+                        if _started:
+                            _questions[-1][_nr_of_questions - 1]["others"].append(_paragraph)
+
+        print("number of questions: %s" % (_nr_of_questions,))
+
+        _used_questions = self.__generate_random_questions(_nr_of_questions)
+
+        self.__delete_unused_paragraphs(_questions,_used_questions)
+
+        self.__generate_table(_document,_questions,_used_questions)
+
+        _document.save(self.__get_report_path())
+
+    def __delete_unused_paragraphs(self,questions,used_questions):
+
+        for _question in questions:
+
+            _question_number = list(_question.keys())[0]
+
+            if _question_number not in used_questions:  
+
+                self.__delete_paragraph(_question[_question_number]["question"])              
+
+                for _paragraph in _question[_question_number]["answers"]:
+                    self.__delete_paragraph(_paragraph)
+
+                for _paragraph in _question[_question_number]["answers_correct"]:
+                    self.__delete_paragraph(_paragraph)
+
+                for _paragraph in _question[_question_number]["others"]:
+                    self.__delete_paragraph(_paragraph)
+
+            else:
+                _paragraph = _question[_question_number]["question"]
+                _paragraph.text = _paragraph.text.replace(PARAG_TAG_QUESTION,"")
+
+                for _paragraph in _question[_question_number]["answers"]:
+                    _paragraph.text = _paragraph.text.replace(PARAG_TAG_ANSWER,"")
+
+                for _paragraph in _question[_question_number]["answers_correct"]:
+                    _paragraph.text = _paragraph.text.replace(PARAG_TAG_ANSWER_CORRECT,"")
+
+    def __generate_random_questions(self,nr_of_questions):
+
+        return random.sample(range(nr_of_questions), PARAG_NUMBER_OF_TEST_QUESTIONS)
+
+    def __is_paragraph_question(self,paragraph):
+
+        return PARAG_TAG_QUESTION in paragraph.text
+
+    def __is_paragraph_answer(self,paragraph):
+
+        return PARAG_TAG_ANSWER in paragraph.text
+
+    def __is_paragraph_answer_correct(self,paragraph):
+
+        return PARAG_TAG_ANSWER_CORRECT in paragraph.text
+
+    def __remove_bold_from_document(self,document):
+
+        for _paragraph in document.paragraphs:
+
             for _run in _paragraph.runs:
+
                 _run.bold = False
-                        
+
+    def __remove_empty_paragrphs_from_document(self,document):
+
+        for _paragraph in document.paragraphs:
+
             if _paragraph.text.strip() == "":
 
                 self.__delete_paragraph(_paragraph)
 
-            if _paragraph._p.pPr != None:
-
-                if _paragraph._p.pPr.numPr != None:
-
-                    if "Q:" == _paragraph.text[0:2]:
-                        _questions_paragraphs.append([_paragraph])
-                    else:
-                        _questions_paragraphs[-1].append(_paragraph)
-
-        _nr_of_questions = len(_questions_paragraphs)
-
-        print("number of questions: %s" % (_nr_of_questions,))
-
-        _questions_indexes = random.sample(range(_nr_of_questions), PARAG_NUMBER_OF_TEST_QUESTIONS)
-
-        _count = 0
-
-        _documentation_indexes = []
-
-        for _list in _questions_paragraphs:
-
-            if _count not in _questions_indexes:
-                for _paragraph in _list:
-                    self.__delete_paragraph(_paragraph)
-            else:
-                _list[-1].text = _list[-1].text + "\n"
-                _list[0].text  = "%s" % (_list[0].text[2:],)
-                _documentation_indexes.append(_count)
-
-            _count += 1
-
-        self.__generate_table(_document,_questions_paragraphs,_documentation_indexes)
-
-        _document.save(self.__get_report_path())
-
-    def __generate_table(self,document,questions,documentation_indexes):
+    def __generate_table(self,document,questions,used_questions):
 
         document.add_page_break()
 
@@ -764,7 +824,7 @@ class Parag_Docx_Interpretor(object):
 
         for _index in range(1,11):
 
-            _table.cell(_index, 1).text = str(documentation_indexes[_index - 1])  
+            _table.cell(_index, 1).text = str(used_questions[_index - 1])  
 
             self.set_cell_border(
                                     _table.cell(_index, 1),
@@ -961,7 +1021,7 @@ if __name__ == "__main__":
 
     #Parag()
 
-    _parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\proceduri_operationale.docx")
+    _parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\legislatie.docx")
 
     #_parser = Parag_Docx_Interpretor(r"d:\projects\paragliding\src\docs\navigatie.docx")
     
