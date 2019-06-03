@@ -75,7 +75,7 @@
 			"file": "src/parag/parag.py",
 			"settings":
 			{
-				"buffer_size": 32930,
+				"buffer_size": 35419,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -258,7 +258,7 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -275,6 +275,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"PARAG_FILES",
 			"OxmlElement",
 			"WD_BREAK",
 			"oxml",
@@ -398,15 +399,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 32930,
+						"buffer_size": 35419,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								32803,
-								32803
+								23720,
+								23720
 							]
 						],
 						"settings":
@@ -416,7 +417,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3354.0,
+						"translation.y": 3053.33333333,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
