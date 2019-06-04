@@ -19,8 +19,11 @@ from PyQt5.QtWidgets              import *
 from parag_widgets.parag_widgets  import *
 from parag_widgets.parag_css      import *
 from parag_icons.parag_icons      import Parag_Icon
+from parag_icons.parag_icons      import Parag_Pixmap
 from datetime                     import datetime
 from parag_db.parag_db            import PARAG_DB
+from docx                         import Document
+from datetime                     import datetime
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -28,6 +31,12 @@ from parag_db.parag_db            import PARAG_DB
 
 PARAG_NUMBER_OF_TEST_QUESTIONS = 10
 PARAG_MIN_CORECT_QUESTIONS     = 8
+PARAG_ANSWER_OPTIONS           = ["a","b","c","d","e","f","g","h"]
+PARAG_QUESTIONS_HEADING        = """
+INTREBARI EXAMEN ACORDARE/PRELUNGIRE
+LICENŢĂ PILOT AERONAVE ULTRAUŞOARE
+CLASA PARAPANTĂ
+""" 
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -222,6 +231,30 @@ class Parag_WDG_Desktop(QWidget):
 
         self.setLayout(self.main_layout)  
 
+    def get_docs_path(self):
+
+        _path = os.path.abspath(__file__)
+        _path = os.path.split(_path)[0]
+        _path = os.path.join(_path,"docs")
+
+        if not os.path.exists(_path):
+
+            os.mkdir(_path)
+
+        return _path
+
+    def get_generated_doc_path(self,name):
+
+        _path = self.get_docs_path()
+
+        _timestamp = str(datetime.now())
+
+        _file_name = "intrebari_%s_%s.docx" % (name,_timestamp.replace(":","_").replace(" ","_").replace("/","_").replace("-","_").replace(".","_"))
+
+        _path = os.path.join(_path,_file_name)
+
+        return _path,_timestamp
+
     def clbk_bt_test(self,state):
 
         self.wdg_test.show()
@@ -258,9 +291,58 @@ class Parag_WDG_Desktop(QWidget):
 
     def clbk_bt_exp(self,state):
 
-        pass
+        _path, _timestamp = self.get_generated_doc_path(self.category.name)
 
-        #TODO
+        _document = Document()
+
+        _paragraph = _document.add_paragraph()
+        _paragraph.add_run(PARAG_QUESTIONS_HEADING).bold = True
+        _document.add_paragraph("")
+        _document.add_paragraph("")
+
+        _question_count = 1
+
+        for _question in self.category.questions:
+
+            _question_text = "%s. %s" % (_question_count,_question.text)
+
+            _question_count += 1
+
+            _paragraph = _document.add_paragraph(_question_text)
+
+            #TODO add images
+
+            _answer_count = 1
+
+            for _answer in _question.answers:
+
+                _answer_text = "    %s) %s" % (PARAG_ANSWER_OPTIONS[_answer_count],_answer.text)
+
+                _answer_count += 1
+
+                _paragraph = _document.add_paragraph()
+                _run       = _paragraph.add_run(_answer_text)
+                _run.bold  = _answer.corect
+
+            _document.add_paragraph("")
+
+        _document.add_paragraph("")
+        _document.add_paragraph("")
+        _document.add_paragraph("")
+        _document.add_paragraph("")
+        _document.add_paragraph("Generat la data: %s" % (_timestamp,))
+
+
+        _document.save(_path)
+
+        _msg = QMessageBox()
+        _msg.setWindowIcon(Parag_Icon("parag"))
+        _msg.setIcon(QMessageBox.Information)
+        _msg.setText("Generat intrebari in fisierul\n%s" % (os.path.split(_path)[1],))
+        _msg.setWindowTitle("Generat Intrebari %s" % (self.category.name.upper(),))
+        _msg.exec_()
+
+        os.startfile(_path)
 
 """*************************************************************************************************
 ****************************************************************************************************
