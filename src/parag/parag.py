@@ -23,6 +23,7 @@ from parag_icons.parag_icons      import Parag_Pixmap
 from datetime                     import datetime
 from parag_db.parag_db            import PARAG_DB
 from docx                         import Document
+from docx.enum.text               import WD_BREAK
 from datetime                     import datetime
 
 """*************************************************************************************************
@@ -34,6 +35,11 @@ PARAG_MIN_CORECT_QUESTIONS     = 8
 PARAG_ANSWER_OPTIONS           = ["a","b","c","d","e","f","g","h"]
 PARAG_QUESTIONS_HEADING        = """
 INTREBARI EXAMEN ACORDARE/PRELUNGIRE
+LICENŢĂ PILOT AERONAVE ULTRAUŞOARE
+CLASA PARAPANTĂ
+""" 
+PARAG_TEST_HEADING        = """
+CHESTIONAR EXAMEN ACORDARE/PRELUNGIRE
 LICENŢĂ PILOT AERONAVE ULTRAUŞOARE
 CLASA PARAPANTĂ
 """ 
@@ -165,14 +171,14 @@ class Parag_Model_Test(object):
 
             for _answer in _question.answers:
 
-                if _answer.is_corect:
-                    if _answer.is_selected:
+                if _answer.corect:
+                    if _answer.selected:
                         _is_corect = True
                     else:
                         _is_corect = False
                         break
                 else:
-                    if _answer.is_selected:
+                    if _answer.selected:
                         _is_corect = False
                         break
                     else:
@@ -255,6 +261,18 @@ class Parag_WDG_Desktop(QWidget):
 
         return _path,_timestamp
 
+    def get_generated_test_path(self,name):
+
+        _path = self.get_docs_path()
+
+        _timestamp = str(datetime.now())
+
+        _file_name = "test_%s_%s.docx" % (name,_timestamp.replace(":","_").replace(" ","_").replace("/","_").replace("-","_").replace(".","_"))
+
+        _path = os.path.join(_path,_file_name)
+
+        return _path,_timestamp
+
     def clbk_bt_test(self,state):
 
         self.wdg_test.show()
@@ -285,9 +303,61 @@ class Parag_WDG_Desktop(QWidget):
 
     def clbk_bt_gen(self,state):
 
-        pass
+        _questions_indexes = random.sample(range(len(self.category.questions)), PARAG_NUMBER_OF_TEST_QUESTIONS)
 
-        #TODO
+        _path, _timestamp = self.get_generated_test_path(self.category.name)
+
+        _document = Document()
+
+        _paragraph = _document.add_paragraph()
+        _paragraph.add_run("%s\n%s" % (PARAG_TEST_HEADING,self.category.name.upper())).bold = True
+        _document.add_paragraph("")
+        _document.add_paragraph("")
+
+        _question_count = 0
+
+        for _question in [self.category.questions[_index] for _index in _questions_indexes]:
+
+            _question_text = "%s. %s" % (_question_count + 1,_question.text)
+
+            _question_count += 1
+
+            _paragraph = _document.add_paragraph(_question_text)
+
+            #TODO add images
+
+            _answer_count = 1
+
+            for _answer in _question.answers:
+
+                _answer_text = "    %s) %s" % (PARAG_ANSWER_OPTIONS[_answer_count],_answer.text)
+
+                _answer_count += 1
+
+                _paragraph = _document.add_paragraph(_answer_text)
+
+            _document.add_paragraph("")
+
+        _document.add_paragraph("Generat la data: %s" % (_timestamp,))
+        _paragraph = _document.add_paragraph("")
+        _run = _paragraph.add_run()
+        _run.add_break(WD_BREAK.PAGE)
+
+        _document.add_paragraph("")
+        _document.add_paragraph("")
+        _document.add_paragraph("")
+        _document.add_paragraph("Generat la data: %s" % (_timestamp,))
+
+        _document.save(_path)
+
+        _msg = QMessageBox()
+        _msg.setWindowIcon(Parag_Icon("parag"))
+        _msg.setIcon(QMessageBox.Information)
+        _msg.setText("Generat chestionar test in fisierul\n%s" % (os.path.split(_path)[1],))
+        _msg.setWindowTitle("Generat Chestionar Test %s" % (self.category.name.upper(),))
+        _msg.exec_()
+
+        os.startfile(_path)
 
     def clbk_bt_exp(self,state):
 
@@ -296,7 +366,7 @@ class Parag_WDG_Desktop(QWidget):
         _document = Document()
 
         _paragraph = _document.add_paragraph()
-        _paragraph.add_run(PARAG_QUESTIONS_HEADING).bold = True
+        _paragraph.add_run("%s\n%s" % (PARAG_QUESTIONS_HEADING,self.category.name.upper())).bold = True
         _document.add_paragraph("")
         _document.add_paragraph("")
 
@@ -331,7 +401,6 @@ class Parag_WDG_Desktop(QWidget):
         _document.add_paragraph("")
         _document.add_paragraph("")
         _document.add_paragraph("Generat la data: %s" % (_timestamp,))
-
 
         _document.save(_path)
 
