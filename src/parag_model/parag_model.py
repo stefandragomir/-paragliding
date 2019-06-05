@@ -14,9 +14,9 @@ class Parag_Model_Category(object):
 *************************************************************************************************"""
 class Parag_Model_Question(object):
 
-    def __init__(self):
+    def __init__(self,txt=""):
 
-        self.text    = ""
+        self.text    = txt
         self.image   = None
         self.answers = []
 
@@ -25,9 +25,9 @@ class Parag_Model_Question(object):
 *************************************************************************************************"""
 class Parag_Model_Answer(object):
 
-    def __init__(self):
+    def __init__(self,corect=False,text=""):
 
-        self.text     = ""
-        self.corect   = False
+        self.text     = text
+        self.corect   = corect
         self.image    = None
         self.selected = False
