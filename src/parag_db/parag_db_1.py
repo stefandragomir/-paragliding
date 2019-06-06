@@ -632,250 +632,253 @@ _question.answers.append(Parag_Model_Answer(False, "gravitație"))
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Cum variază presiunea aerului o dată cu creșterea altitudinii?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "Se reduce la jumătate până la tropopauză și după aceea rămâne constant"))
+_question.answers.append(Parag_Model_Answer(False, "Se reduce cu aproximativ 80hPa / 100m de altitudine"))
+_question.answers.append(Parag_Model_Answer(True,  "Se reduce cu jumătate la aproximativ fiecare 5.500 m de altitudine"))
+_question.answers.append(Parag_Model_Answer(False, "Se reduce cu jumătate la aproximativ fiecare 11.000 m de altitudine"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Care este presiunea medie de la nivelul măriii (atmosfera standard) folosită de meteorologiști?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(True,  "1013,2  hPa "))
+_question.answers.append(Parag_Model_Answer(False, "1033,6  hPa  "))
+_question.answers.append(Parag_Model_Answer(False, "760,0  hPa  "))
+_question.answers.append(Parag_Model_Answer(False, "998,7  hPa  "))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Presiunea la nivelul mării")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "este întotdeauna constantă"))
+_question.answers.append(Parag_Model_Answer(False, "poate în cazuri mai rare să crească față de medie"))
+_question.answers.append(Parag_Model_Answer(False, "poate în cazuri mai rare să scadă față de medie"))
+_question.answers.append(Parag_Model_Answer(True,  "poate fi mai mare sau mai mică față de valoarea medie depinzând de situația vremii."))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Presiunea intr-un punct dat la nivelul mării depinde de")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "maree"))
+_question.answers.append(Parag_Model_Answer(True,  "circulația globală a aerului"))
+_question.answers.append(Parag_Model_Answer(False, "caracteristicile suprafeței"))
+_question.answers.append(Parag_Model_Answer(False, "longitudine"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Un copil elibereaza un balon cu volum aproximativ de 5 dm3 la nivelul mării. Care este volumul aproximativ al balonului când ajunge la altitudinea de 5.500 m deasupra nivelului mării")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "2,5 dm3"))
+_question.answers.append(Parag_Model_Answer(False, "5 dm3"))
+_question.answers.append(Parag_Model_Answer(True,  "10 dm3"))
+_question.answers.append(Parag_Model_Answer(False, "20 dm3"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Barometrul arată o presiune de 980 hPa la nivelul mării. Care este cea mai probabilă presiune la o altitudine de 5.500 mdeasupra nivelului mări?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "1035 hPa"))
+_question.answers.append(Parag_Model_Answer(False, "980 hPa"))
+_question.answers.append(Parag_Model_Answer(False, "650 hPa"))
+_question.answers.append(Parag_Model_Answer(True,  "490 hPa"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Care este partea atmosferei unde condițiile meteorologice ne determină vremea?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "Ionosfera"))
+_question.answers.append(Parag_Model_Answer(False, "Mezosfera"))
+_question.answers.append(Parag_Model_Answer(False, "Stratosfera"))
+_question.answers.append(Parag_Model_Answer(True,  "Troposfera"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Temperatura stratului de aer de lângă sol este influențată cel mai mult de")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(True,  "temperatura solului."))
+_question.answers.append(Parag_Model_Answer(False, "acțiunea radiației solare supra particulelor de aer"))
+_question.answers.append(Parag_Model_Answer(False, "umiditatea relativă a aerului."))
+_question.answers.append(Parag_Model_Answer(False, "unghiul de incidență a razelor solare asupra particulelor de aer."))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Pentru aceeași intensitate și unghi de incidență a razelor solare, care din următoarele tipuri de sol încălzește cel mai mult stratul de aer adiacent?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
+_question.answers.append(Parag_Model_Answer(False, "Solul pietros."))
+_question.answers.append(Parag_Model_Answer(False, "Pădure tânără."))
+_question.answers.append(Parag_Model_Answer(False, "O mlaștină."))
+_question.answers.append(Parag_Model_Answer(True,  "Pășune uscată"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("La aceeași altitudine deasupra nivelului mării")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "aerul cald e mai dens decât aerul rece."))
+_question.answers.append(Parag_Model_Answer(False, "aerul cald are aceeași densitate ca aerul rece"))
+_question.answers.append(Parag_Model_Answer(True,  "aerul cald e mai puțin dens ca aerul rece."))
+_question.answers.append(Parag_Model_Answer(False, "densitatea aerului depinde de gradientul adiabatic"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Cum variază temperatura unei bule de aer pe măsură ce se ridică de la sol fără a creea un nor?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "Temperatura crește cu aproximativ 0.5°C /100m pentru că radiația solară devine tot mai intensă"))
+_question.answers.append(Parag_Model_Answer(False, "Nu se poate determina, pentru că temperatura se egalizează cu cea a aerului din jur"))
+_question.answers.append(Parag_Model_Answer(False, "Temperatura se reduce cu aproximativ 0.65°C /100m, cum de fapt e cazul în toată troposfera"))
+_question.answers.append(Parag_Model_Answer(True,  "Temperatura se reduce cu aproximativ  1°C /100m pentru că presiunea se reduce o dată cu creșterea altitudinii."))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Cum variază temperatura unei bule de aer care urcă?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(True,  "Pentru că presiunea scade o dată cu creșterea altitudinii rezultă extinderea bulei și pierdere de energie sub formă de căldură"))
+_question.answers.append(Parag_Model_Answer(False, "Bula se va răci pentru că s-a îndepărtat de sursa de căldură, adică suprafata solului."))
+_question.answers.append(Parag_Model_Answer(False, "Pentru că unghiul radiației solare se reduce o dată cu creșterea altitudinii, deci bula de aer primește mai puțină căldură de cât la nivelul solului"))
+_question.answers.append(Parag_Model_Answer(False, "Din cauză că bula de aer trebuie să evapore apă pe măsură ce urcă, există o relație între creșterea altitudinii și reducerea temperaturii."))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Cum variază volumul și temperatura unei mase de aer care coboară?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "Volumul crește, temperatura scade"))
+_question.answers.append(Parag_Model_Answer(False, "Volumul crește, temperatura crește."))
+_question.answers.append(Parag_Model_Answer(True,  "Volumul scade, temperatura crește"))
+_question.answers.append(Parag_Model_Answer(False, "Volumul scade, temperatura scade"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Care este principalul mod de încălzire în timpul zilei a unei mase de aer la 100m deasupra solului?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(True,  "Aerul adiacent solului se încălzește și urcă în timp ce aerul de la altitudine coboară la sol unde este încălzit."))
+_question.answers.append(Parag_Model_Answer(False, "Radiația UV solară este absorbită de sol iar spectrul infraroșu este reflectat de sol, încălzind aerul mai mult sau mai puțin, proporțional cu distanța de la suprafața solului."))
+_question.answers.append(Parag_Model_Answer(False, "Radiația solară încarcă particulele de aer cu energie (ionizare), care este ulterior eliberată bub formă de căldură"))
+_question.answers.append(Parag_Model_Answer(False, "Stratul de aer adiacent solului se încălzește și, fiind un bun conductor termic, transferă căldura straturilor superioare de aer"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("În medie temperatura din troposferă se reduce o dată cu creșterea altitudinii. Totuși, se poate întâmpla ca în anumite zone temperatura să crească. Cum se numește acest fenomen?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "Superadiabatic"))
+_question.answers.append(Parag_Model_Answer(False, "Izoterm"))
+_question.answers.append(Parag_Model_Answer(False, "Restitutie"))
+_question.answers.append(Parag_Model_Answer(True,  "Inversiune"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("În medie temperatura din troposferă se reduce o dată cu creșterea altitudinii. Totuși, se poate întâmpla ca în anumite zone temperatura să rămănă constantă. Cum se numește acest fenomen?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "Superadiabatic"))
+_question.answers.append(Parag_Model_Answer(True,  "Izotermă"))
+_question.answers.append(Parag_Model_Answer(False, "Restituție"))
+_question.answers.append(Parag_Model_Answer(False, "Inversiune"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("O bulă de aer se încălzește, se desprinde de sol și începe să se ridice. Cât de sus se poate ridica bula?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "Până se reduce transferul de căldură de la sol"))
+_question.answers.append(Parag_Model_Answer(False, "Până când presiunea bulei este mai mică de cât cea a aerului din jur"))
+_question.answers.append(Parag_Model_Answer(True,  "Până când diferența dintre temperatura ei si a aerului din jur se reduce la  0."))
+_question.answers.append(Parag_Model_Answer(False, "Până când diferența dintre temperatura ei și punctul de rouă se reduce la 0"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("O inversiune este un strat de aer în care temperatura")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "scade o dată cu creșterea altitudinii"))
+_question.answers.append(Parag_Model_Answer(True,  "crește o dată cu creșterea altitudinii."))
+_question.answers.append(Parag_Model_Answer(False, "este deasupra nivelului de îngheț"))
+_question.answers.append(Parag_Model_Answer(False, "este constantă"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("O izotermă este un strat de aer în care temperatura")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
+_question.answers.append(Parag_Model_Answer(False, "scade o dată cu creșterea altitudinii"))
+_question.answers.append(Parag_Model_Answer(False, "crește o dată cu creșterea altitudinii"))
+_question.answers.append(Parag_Model_Answer(False, "este deasupra nivelului de îngheț"))
+_question.answers.append(Parag_Model_Answer(True,  "este constantă"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Inversiunile și izotermele sunt")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "puncte de origine și declanșare ale aerului termic care urcă"))
+_question.answers.append(Parag_Model_Answer(False, "elemente instabile stratificate ale troposferei"))
+_question.answers.append(Parag_Model_Answer(False, "stabile sau instabile depinzând de temperatură"))
+_question.answers.append(Parag_Model_Answer(True,  "bariere pentru masele de aer termic care urcă"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Gradientul de temperatură este definit ca fiind ")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "diferența de altitudine per °C într-o masă de aer."))
+_question.answers.append(Parag_Model_Answer(False, "diferența de presiune per km între două puncte geografice diferite"))
+_question.answers.append(Parag_Model_Answer(False, "unitatea de măsură a temperaturii"))
+_question.answers.append(Parag_Model_Answer(True,  "diferența de temperatură pentru o creștere de 100 m a altitudinii"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Gradientul temperaturii unui strat izotermic este")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(True,  "0C / 100m"))
+_question.answers.append(Parag_Model_Answer(False, "0.5C / 100m"))
+_question.answers.append(Parag_Model_Answer(False, "0.65C / 100m"))
+_question.answers.append(Parag_Model_Answer(False, "1C / 100m "))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Unde găsim de obicei o inversiune?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "La baza norilor cumulus"))
+_question.answers.append(Parag_Model_Answer(True,  "La granița dintre un strat de aer cețos de la sol și un strat de aer clar de la altitudine"))
+_question.answers.append(Parag_Model_Answer(False, "Unde este o diferență temperatură-punct de rouă de 0"))
+_question.answers.append(Parag_Model_Answer(False, "Deasupra unei convergențe"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Care din următoarele semne indică prezența unei inversiuni?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "Un nor cumulus"))
+_question.answers.append(Parag_Model_Answer(False, "Un nor lenticular"))
+_question.answers.append(Parag_Model_Answer(True,  "Un strat de ceață"))
+_question.answers.append(Parag_Model_Answer(False, "Un nor cirus"))
 
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
-_question       = Parag_Model_Question("AAAAA")
+_question       = Parag_Model_Question("Care din următoarele sondaje de temperatură măsurate la ora 02:00 indică prezența unei inversiuni la altitudine")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAA"))
-
+_question.answers.append(Parag_Model_Answer(False, "1"))
+_question.answers.append(Parag_Model_Answer(False, "2"))
+_question.answers.append(Parag_Model_Answer(False, "3"))
+_question.answers.append(Parag_Model_Answer(False, "4"))
+_question.image = ""
 
 """*************************************************************************************************
 ****************************************************************************************************
