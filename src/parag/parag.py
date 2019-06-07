@@ -2,6 +2,7 @@
 import os
 import sys
 import random
+import base64
 
 try:
     _path = os.path.split(os.path.split(os.path.abspath(__file__))[0])[0]
@@ -28,6 +29,8 @@ from datetime                     import datetime
 from functools                    import partial
 from docx.oxml                    import OxmlElement
 from docx.oxml.ns                 import qn
+from io                           import StringIO
+from io                           import BytesIO
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -335,7 +338,13 @@ class Parag_WDG_Desktop(QWidget):
 
                 _paragraph = _document.add_paragraph(_question_text)
 
-                #TODO add images
+                if _question.image != None:
+
+                    _bytes = base64.b64decode(_question.image)
+
+                    _str = BytesIO(_bytes)
+
+                    _document.add_picture(_str)
 
                 _answer_count = 1
 
@@ -521,9 +530,16 @@ class Parag_WDG_Desktop(QWidget):
 
             _paragraph = _document.add_paragraph(_question_text)
 
-            #TODO add images
+            if _question.image != None:
+
+                _bytes = base64.b64decode(_question.image)
+
+                _str = BytesIO(_bytes)
+
+                _document.add_picture(_str)
 
             _answer_count = 1
+
 
             for _answer in _question.answers:
 
