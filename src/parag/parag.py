@@ -782,6 +782,7 @@ class Parag_WDG_Question(QWidget):
     def draw_gui(self):
 
         self.lbl_question = Parag_WDG_Label()
+        self.lbl_image    = Parag_WDG_Label()
         self.rd_answers   = []
 
         for _index in range(5):
@@ -790,6 +791,7 @@ class Parag_WDG_Question(QWidget):
 
         self.main_layout = QVBoxLayout()
         self.main_layout.addWidget(self.lbl_question)
+        self.main_layout.addWidget(self.lbl_image)
 
         for _index in range(5):
             self.main_layout.addWidget(self.rd_answers[_index])
@@ -797,12 +799,15 @@ class Parag_WDG_Question(QWidget):
         self.setLayout(self.main_layout)
 
         self.lbl_question.hide()
+        self.lbl_image.hide()
 
         for _index in range(5):
 
             self.rd_answers[_index].hide()
 
     def populate(self,question):
+
+        self.lbl_image.hide()
 
         for _index in range(5):
 
@@ -811,6 +816,21 @@ class Parag_WDG_Question(QWidget):
         self.question = question
 
         self.lbl_question.show()
+
+        if question.image != None:
+
+            self.lbl_image.show()
+
+            _barray      = QByteArray()
+            _barray_data = _barray.fromBase64(question.image.encode("utf-8"))
+
+            #create pixmap from base64 data
+            _pixmap = QPixmap ()
+            _pixmap.loadFromData(_barray_data, "PNG")
+
+            self.lbl_image.setPixmap(_pixmap)
+            self.lbl_image.setMask(_pixmap.mask())
+
 
         for _index in range(len(self.question.answers)):
 
