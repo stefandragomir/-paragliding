@@ -173,24 +173,18 @@ class Parag_Model_Test(object):
 
         for _question in self.questions:
 
-            _is_corect = True
+            _user_scor = 0
+            _nrm_scor  = 0
 
             for _answer in _question.answers:
 
-                if _answer.corect:
-                    if _answer.selected:
-                        _is_corect = True
-                    else:
-                        _is_corect = False
-                        break
-                else:
-                    if _answer.selected:
-                        _is_corect = False
-                        break
-                    else:
-                        _is_corect = True
+                if _answer.corect and  _answer.selected:
+                    _user_scor += 1
 
-            if _is_corect:
+                if _answer.corect:
+                    _nrm_scor += 1
+
+            if _user_scor == _nrm_scor:
                 _corect += 1
             else:
                 _incorect += 1
@@ -377,6 +371,7 @@ class Parag_WDG_Desktop(QWidget):
         _msg.exec_()
 
         os.startfile(_path)
+
     def __generate_table(self,document,questions):
 
             document.add_page_break()
@@ -447,7 +442,7 @@ class Parag_WDG_Desktop(QWidget):
 
                     if _answer.corect:
 
-                        _answer_text += "%s) " % (PARAG_ANSWER_OPTIONS[_answer_count],)
+                        _answer_text += "%s, " % (PARAG_ANSWER_OPTIONS[_answer_count],)
 
                     _answer_count += 1
 
