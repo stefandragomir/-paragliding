@@ -25,6 +25,9 @@ from parag_db.parag_db            import PARAG_DB
 from docx                         import Document
 from docx.enum.text               import WD_BREAK
 from datetime                     import datetime
+from functools                    import partial
+from docx.oxml                    import OxmlElement
+from docx.oxml.ns                 import qn
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -316,32 +319,39 @@ class Parag_WDG_Desktop(QWidget):
 
         _question_count = 0
 
-        for _question in [self.category.questions[_index] for _index in _questions_indexes]:
+        _table_questions = []
 
-            _question_text = "%s. %s" % (_question_count + 1,_question.text)
+        for _index in range(len(self.category.questions)):
 
-            _question_count += 1
+            if _index in _questions_indexes:
 
-            _paragraph = _document.add_paragraph(_question_text)
+                _question = self.category.questions[_index]
 
-            #TODO add images
+                _table_questions.append([_index + 1,_question])
 
-            _answer_count = 1
+                _question_text = "%s. %s" % (_question_count + 1,_question.text)
 
-            for _answer in _question.answers:
+                _question_count += 1
 
-                _answer_text = "    %s) %s" % (PARAG_ANSWER_OPTIONS[_answer_count],_answer.text)
+                _paragraph = _document.add_paragraph(_question_text)
 
-                _answer_count += 1
+                #TODO add images
 
-                _paragraph = _document.add_paragraph(_answer_text)
+                _answer_count = 1
 
-            _document.add_paragraph("")
+                for _answer in _question.answers:
+
+                    _answer_text = "    %s) %s" % (PARAG_ANSWER_OPTIONS[_answer_count],_answer.text)
+
+                    _answer_count += 1
+
+                    _paragraph = _document.add_paragraph(_answer_text)
+
+                _document.add_paragraph("")
 
         _document.add_paragraph("Generat la data: %s" % (_timestamp,))
-        _paragraph = _document.add_paragraph("")
-        _run = _paragraph.add_run()
-        _run.add_break(WD_BREAK.PAGE)
+
+        self.__generate_table(_document,_table_questions)
 
         _document.add_paragraph("")
         _document.add_paragraph("")
@@ -358,6 +368,137 @@ class Parag_WDG_Desktop(QWidget):
         _msg.exec_()
 
         os.startfile(_path)
+    def __generate_table(self,document,questions):
+
+            document.add_page_break()
+
+            _table = document.add_table(rows=11, cols=4)
+
+            _table.cell(0, 0).text = "Numar Intrebare Test"
+            self.set_cell_border(
+                                    _table.cell(0, 0),
+                                    top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+            _table.cell(0, 1).text = "Numar Intrebare Documentatie"
+            self.set_cell_border(
+                                    _table.cell(0, 1),
+                                    top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+            _table.cell(0, 2).text = "Raspuns Corect"
+            self.set_cell_border(
+                                    _table.cell(0, 2),
+                                    top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+            _table.cell(0, 3).text = "Raspuns Examen"
+            self.set_cell_border(
+                                    _table.cell(0, 3),
+                                    top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+            for _index in range(len(questions)):
+
+                _table.cell(_index + 1, 0).text = str(_index + 1)  
+
+                self.set_cell_border(
+                                        _table.cell(_index + 1, 0),
+                                        top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                        bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                        start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                        end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+            for _index in range(len(questions)):
+
+                _table.cell(_index + 1, 1).text = str(questions[_index][0])  
+
+                self.set_cell_border(
+                                        _table.cell(_index + 1, 1),
+                                        top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                        bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                        start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                        end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+            for _index in range(len(questions)):
+
+                _answer_text = ""
+
+                _answer_count = 0
+
+                for _answer in questions[_index][1].answers:
+
+                    if _answer.corect:
+
+                        _answer_text += "%s) " % (PARAG_ANSWER_OPTIONS[_answer_count],)
+
+                    _answer_count += 1
+
+
+                _table.cell(_index + 1, 2).text = _answer_text
+
+                self.set_cell_border(
+                                        _table.cell(_index + 1, 2),
+                                        top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                        bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                        start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                        end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+            for _index in range(len(questions)):
+
+                self.set_cell_border(
+                                        _table.cell(_index + 1, 3),
+                                        top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                        bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                        start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                        end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+    def set_cell_border(sefl, cell, **kwargs):
+        """
+        Set cell`s border
+        Usage:
+
+        set_cell_border(
+            cell,
+            top={"sz": 12, "val": "single", "color": "#FF0000", "space": "0"},
+            bottom={"sz": 12, "color": "#00FF00", "val": "single"},
+            start={"sz": 24, "val": "dashed", "shadow": "true"},
+            end={"sz": 12, "val": "dashed"},
+        )
+        """
+        tc = cell._tc
+        tcPr = tc.get_or_add_tcPr()
+
+        # check for tag existnace, if none found, then create one
+        tcBorders = tcPr.first_child_found_in("w:tcBorders")
+        if tcBorders is None:
+            tcBorders = OxmlElement('w:tcBorders')
+            tcPr.append(tcBorders)
+
+        # list over all available tags
+        for edge in ('start', 'top', 'end', 'bottom', 'insideH', 'insideV'):
+            edge_data = kwargs.get(edge)
+            if edge_data:
+                tag = 'w:{}'.format(edge)
+
+                # check for tag existnace, if none found, then create one
+                element = tcBorders.find(qn(tag))
+                if element is None:
+                    element = OxmlElement(tag)
+                    tcBorders.append(element)
+
+                # looks like order of attributes is important
+                for key in ["sz", "val", "color", "space", "shadow"]:
+                    if key in edge_data:
+                        element.set(qn('w:{}'.format(key)), str(edge_data[key]))
 
     def clbk_bt_exp(self,state):
 
@@ -559,21 +700,12 @@ class Parag_WDG_Desktop_Test(QWidget):
 
         if self.test_type == "learn":
 
-            if self.test_learn.questions[self.question_number].answers[0].corect:
-                self.wdg_question.rd_answer_a.setStyleSheet("QCheckBox { color: green }")
-            else:
-                self.wdg_question.rd_answer_a.setStyleSheet("QCheckBox { color: red }")
+            for _index in range(len(self.test_learn.questions[self.question_number].answers)):
 
-            if self.test_learn.questions[self.question_number].answers[1].corect:
-                self.wdg_question.rd_answer_b.setStyleSheet("QCheckBox { color: green }")
-            else:
-                self.wdg_question.rd_answer_b.setStyleSheet("QCheckBox { color: red }")
-
-            if self.test_learn.questions[self.question_number].answers[2].corect:
-                self.wdg_question.rd_answer_c.setStyleSheet("QCheckBox { color: green }")
-            else:
-                self.wdg_question.rd_answer_c.setStyleSheet("QCheckBox { color: red }")
-
+                if self.test_learn.questions[self.question_number].answers[_index].corect:
+                    self.wdg_question.rd_answers[_index].setStyleSheet("QCheckBox { color: green }")
+                else:
+                    self.wdg_question.rd_answers[_index].setStyleSheet("QCheckBox { color: red }")
         else:
             _total,_corect,_incorect = self.test_exam.get_result()
 
@@ -634,73 +766,52 @@ class Parag_WDG_Question(QWidget):
     def draw_gui(self):
 
         self.lbl_question = Parag_WDG_Label()
-        self.rd_answer_a  = Parag_WDG_CheckBox("")
-        self.rd_answer_b  = Parag_WDG_CheckBox("")
-        self.rd_answer_c  = Parag_WDG_CheckBox("")
+        self.rd_answers   = []
 
-
-        self.rd_answer_a.stateChanged.connect(self.clbk_answer_a)
-        self.rd_answer_b.stateChanged.connect(self.clbk_answer_b)
-        self.rd_answer_c.stateChanged.connect(self.clbk_answer_c)
+        for _index in range(5):
+            self.rd_answers.append(Parag_WDG_CheckBox(""))
+            self.rd_answers[-1].stateChanged.connect(partial(self.clbk_answer,_index))
 
         self.main_layout = QVBoxLayout()
         self.main_layout.addWidget(self.lbl_question)
-        self.main_layout.addWidget(self.rd_answer_a)
-        self.main_layout.addWidget(self.rd_answer_b)
-        self.main_layout.addWidget(self.rd_answer_c)
+
+        for _index in range(5):
+            self.main_layout.addWidget(self.rd_answers[_index])
 
         self.setLayout(self.main_layout)
 
         self.lbl_question.hide()
-        self.rd_answer_a.hide()
-        self.rd_answer_b.hide()
-        self.rd_answer_c.hide()
+
+        for _index in range(5):
+
+            self.rd_answers[_index].hide()
 
     def populate(self,question):
 
-        self.rd_answer_a.setStyleSheet("QCheckBox { color: #b1b1b1 }")
-        self.rd_answer_b.setStyleSheet("QCheckBox { color: #b1b1b1 }")
-        self.rd_answer_c.setStyleSheet("QCheckBox { color: #b1b1b1 }")
+        for _index in range(5):
 
+            self.rd_answers[_index].hide()
 
         self.question = question
 
         self.lbl_question.show()
-        self.rd_answer_a.show()
-        self.rd_answer_b.show()
-        self.rd_answer_c.show()
+
+        for _index in range(len(self.question.answers)):
+
+            self.rd_answers[_index].show()
+            self.rd_answers[_index].setStyleSheet("QCheckBox { color: #b1b1b1 }")
+            self.rd_answers[_index].setText(self.question.answers[_index].text)
+
+            if self.question.answers[_index].selected:
+                self.rd_answers[_index].setCheckState(Qt.Checked)
+            else:
+                self.rd_answers[_index].setCheckState(Qt.Unchecked)
 
         self.lbl_question.setText(self.question.text)
-        self.rd_answer_a.setText(self.question.answers[0].text)
-        self.rd_answer_b.setText(self.question.answers[1].text)
-        self.rd_answer_c.setText(self.question.answers[2].text)
 
-        if self.question.answers[0].selected:
-            self.rd_answer_a.setCheckState(Qt.Checked)
-        else:
-            self.rd_answer_a.setCheckState(Qt.Unchecked)
-
-        if self.question.answers[1].selected:
-            self.rd_answer_b.setCheckState(Qt.Checked)
-        else:
-            self.rd_answer_b.setCheckState(Qt.Unchecked)
-
-        if self.question.answers[2].selected:
-            self.rd_answer_c.setCheckState(Qt.Checked)
-        else:
-            self.rd_answer_c.setCheckState(Qt.Unchecked)
-
-    def clbk_answer_a(self,state):
+    def clbk_answer(self,state,index):
         
-        self.question.answers[0].selected = state == Qt.Checked
-
-    def clbk_answer_b(self,state):
-        
-        self.question.answers[1].selected = state == Qt.Checked
-
-    def clbk_answer_c(self,state):
-        
-        self.question.answers[2].selected = state == Qt.Checked
+        self.question.answers[index].selected = state == Qt.Checked
 
 """*************************************************************************************************
 ****************************************************************************************************
