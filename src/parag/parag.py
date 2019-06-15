@@ -340,7 +340,7 @@ class Parag_WDG_Desktop(QWidget):
 
                     _document.add_picture(_str)
 
-                _answer_count = 1
+                _answer_count = 0
 
                 for _answer in _question.answers:
 
@@ -823,7 +823,10 @@ class Parag_WDG_Question(QWidget):
             _pixmap = QPixmap ()
             _pixmap.loadFromData(_barray_data, "PNG")
 
-            self.lbl_image.setPixmap(_pixmap)
+            _w = 600
+            _h = 600
+
+            self.lbl_image.setPixmap(_pixmap.scaled(_w,_h,Qt.KeepAspectRatio))
             self.lbl_image.setMask(_pixmap.mask())
 
 
