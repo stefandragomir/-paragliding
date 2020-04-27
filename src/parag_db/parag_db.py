@@ -5,6 +5,7 @@ from parag_db.parag_db_4  import PARAG_CATEGORY_4
 from parag_db.parag_db_5  import PARAG_CATEGORY_5
 from parag_db.parag_db_6  import PARAG_CATEGORY_6
 from parag_db.parag_db_7  import PARAG_CATEGORY_7
+from parag_db.parag_db_8  import PARAG_CATEGORY_8
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -17,4 +18,5 @@ PARAG_DB = [
 			PARAG_CATEGORY_5,
 			PARAG_CATEGORY_6,
 			PARAG_CATEGORY_7,
+			PARAG_CATEGORY_8,
 			]
