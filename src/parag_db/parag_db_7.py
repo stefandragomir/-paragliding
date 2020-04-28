@@ -250,9 +250,9 @@ _question.answers.append(Parag_Model_Answer(False, "seletele tip cocoon au prote
 *************************************************************************************************"""
 _question       = Parag_Model_Question("Alegeti afirmatia corecta:")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(True, "sistanta dintre punctele de acrosaj are influenta asupra comportamentului parapantei"))
-_question.answers.append(Parag_Model_Answer(False, "sistanta dintre punctele de acrosaj are influenta doar asupra confortului pilotului"))
-_question.answers.append(Parag_Model_Answer(True, "sistanta dintre punctele de acrosaj se regleaza intr-un domeniu strict"))
+_question.answers.append(Parag_Model_Answer(True, "distanta dintre punctele de acrosaj are influenta asupra comportamentului parapantei"))
+_question.answers.append(Parag_Model_Answer(False, "distanta dintre punctele de acrosaj are influenta doar asupra confortului pilotului"))
+_question.answers.append(Parag_Model_Answer(True, "distanta dintre punctele de acrosaj se regleaza intr-un domeniu strict"))
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -1311,7 +1311,7 @@ _question.answers.append(Parag_Model_Answer(False, "pilotul simte mai puțin tur
 *************************************************************************************************"""
 _question       = Parag_Model_Question("Ce efect au seletele cu puncte înalte de atașare a carabinelor în timpul turbulențelor?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "Pilotul simte mai puțin turbulența, dar îi este mai dificil a se apleca înainte când accelerează la decolare."))
+_question.answers.append(Parag_Model_Answer(True, "Pilotul simte mai puțin turbulența, dar îi este mai dificil a se apleca înainte când accelerează la decolare."))
 _question.answers.append(Parag_Model_Answer(False, "Pilotul simte mai mult turbulența, dar îi este mai puțin dificil a se apleca înainte când accelerează la decolare."))
 _question.answers.append(Parag_Model_Answer(False, "Pilotul simte mai puțin turbulența, dar îi este mai puțin dificil a se apleca înainte când accelerează la decolare."))
 _question.answers.append(Parag_Model_Answer(False, "Pilotul simte mai mult turbulența, dar îi este mai dificil a se apleca înainte când accelerează la decolare."))

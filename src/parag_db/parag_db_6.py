@@ -576,10 +576,17 @@ _question.answers.append(Parag_Model_Answer(False, "cu manevra b- stall se poate
 *************************************************************************************************"""
 _question       = Parag_Model_Question("La aterizarea in zone care prezinta ascendenta usoara sau turbulenta usoara se recomanda:")
 _category.questions.append(_question)
+_question.answers.append(Parag_Model_Answer(True, "aterizarea cu urechi"))
+_question.answers.append(Parag_Model_Answer(False, "aterizarea cu b-stall"))
+_question.answers.append(Parag_Model_Answer(False, "aterizarea cu front-stall"))
+"""*************************************************************************************************
+****************************************************************************************************
+*************************************************************************************************"""
+_question       = Parag_Model_Question("La stabilirea traiectului de zbor este obligatoriu sa luati in considerare:")
+_category.questions.append(_question)
 _question.answers.append(Parag_Model_Answer(True, "spatiul de renuntare"))
 _question.answers.append(Parag_Model_Answer(False, "traseu alternativ"))
 _question.answers.append(Parag_Model_Answer(False, "traiectul sondei meteo"))
-
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
@@ -1008,7 +1015,7 @@ _question.answers.append(Parag_Model_Answer(False, "când se trece peste primii 
 _question       = Parag_Model_Question("Care sunt indiciile că încercați să decolați de pe partea de sub vânt a muntelui? ")
 _category.questions.append(_question)
 _question.answers.append(Parag_Model_Answer(False, "Vânt de spate constant, de 5 - 10 km / h. "))
-_question.answers.append(Parag_Model_Answer(False, "Forța și direcția vântului se schimbă brusc. "))
+_question.answers.append(Parag_Model_Answer(True, "Forța și direcția vântului se schimbă brusc. "))
 _question.answers.append(Parag_Model_Answer(False, "Cicluri constante între vânt zero și vânturi termice de diferite intensități. "))
 _question.answers.append(Parag_Model_Answer(False, "La altitudini mai mari, norii se deplasează peste decolare din față. "))
 """*************************************************************************************************
@@ -1389,7 +1396,7 @@ _question.answers.append(Parag_Model_Answer(True, "se înclină spre est cu cre�
 _question       = Parag_Model_Question("În condiții de vânt 5m/s din 270°, un pilot zboară într-o termică care se înclină spre est cu creșterea altitudinii. Pe care parte a termicii va fi descendența cea mai puternică?")
 _category.questions.append(_question)
 _question.answers.append(Parag_Model_Answer(False, "Pe partea din vânt."))
-_question.answers.append(Parag_Model_Answer(True, "Pn partea de sub vânt."))
+_question.answers.append(Parag_Model_Answer(True, "Pe partea de sub vânt."))
 _question.answers.append(Parag_Model_Answer(False, "Pe partea orientată spre soare."))
 _question.answers.append(Parag_Model_Answer(False, "Pe partea orientată opus soarelui."))
 """*************************************************************************************************

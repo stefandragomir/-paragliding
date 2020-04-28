@@ -1435,10 +1435,10 @@ _question.answers.append(Parag_Model_Answer(False, "are loc la o viteză mai mic
 *************************************************************************************************"""
 _question       = Parag_Model_Question("Atunci cand o parapantă zboară la incărcare minimă, punctul de angajare apare")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "AAAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAAA"))
-_question.answers.append(Parag_Model_Answer(False, "AAAAAA"))
+_question.answers.append(Parag_Model_Answer(False, "la o viteză mai mare decât la încărcare maximă."))
+_question.answers.append(Parag_Model_Answer(False, "la aceeași viteză și unghi de atac independent de sarcină."))
+_question.answers.append(Parag_Model_Answer(False, "la un unghi mai mic de atac."))
+_question.answers.append(Parag_Model_Answer(True, "la o viteză mai mică decât la încărcare maximă."))
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
@@ -1579,10 +1579,19 @@ _question.answers.append(Parag_Model_Answer(False, "4,5"))
 *************************************************************************************************"""
 _question       = Parag_Model_Question("Care este coarda medie a unei parapante cu următoarele caracteristici: Anvergură 10 m, Suprafață 25 m2, Incărcare minimă 70 kg, Incărcare maximă 95 kg și Greutatea parapantei 5 kg?")
 _category.questions.append(_question)
-_question.answers.append(Parag_Model_Answer(False, "2,5"))
+_question.answers.append(Parag_Model_Answer(True, "2,5"))
 _question.answers.append(Parag_Model_Answer(False, "3,5"))
-_question.answers.append(Parag_Model_Answer(True, "4,0"))
+_question.answers.append(Parag_Model_Answer(False, "4,0"))
 _question.answers.append(Parag_Model_Answer(False, "4,5"))
+"""*************************************************************************************************
+****************************************************************************************************
+*************************************************************************************************"""
+_question       = Parag_Model_Question("Care este încărcarea alară a unei parapante la încărcare maximă, cu următoarelecaracteristici:Anvergură 10 m, Suprafață 25 m², Încărcare minimă 70 kg, Încărcare maximă 95 kg și Greutatea parapantei 5 kg?")
+_category.questions.append(_question)
+_question.answers.append(Parag_Model_Answer(False, "3,0 kg / m²"))
+_question.answers.append(Parag_Model_Answer(False, "3,5 kg / m²"))
+_question.answers.append(Parag_Model_Answer(True, "4,0 kg / m²"))
+_question.answers.append(Parag_Model_Answer(False, "4,5 kg / m²"))
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""

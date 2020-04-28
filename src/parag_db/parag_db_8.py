@@ -219,7 +219,14 @@ _category.questions.append(_question)
 _question.answers.append(Parag_Model_Answer(False, "este obligatorie pentru zborurile VFR"))
 _question.answers.append(Parag_Model_Answer(True, "nu este obligatorie pentru zborurile VFR"))
 _question.answers.append(Parag_Model_Answer(False, "este obligatorie pentru zborurile IFR"))
-
+"""*************************************************************************************************
+****************************************************************************************************
+*************************************************************************************************"""
+_question       = Parag_Model_Question("In Spatiul aerian de clasa G")
+_category.questions.append(_question)
+_question.answers.append(Parag_Model_Answer(True, "este obligatoriu comunicare radio pentru zborurile VFR"))
+_question.answers.append(Parag_Model_Answer(False, ") nu este obligatorie comunicatiile radio pentru zborurile VFR"))
+_question.answers.append(Parag_Model_Answer(False, "zborurile IFR nu sunt permise"))
 """*************************************************************************************************
 ****************************************************************************************************
 *************************************************************************************************"""
