@@ -533,7 +533,7 @@ class Parag_WDG_Desktop(QWidget):
 
                 _document.add_picture(_str)
 
-            _answer_count = 1
+            _answer_count = 0
 
 
             for _answer in _question.answers:
