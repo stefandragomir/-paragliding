@@ -79,11 +79,16 @@ class Parag_UI(QMainWindow):
         
         #selection tree
         self.tree = Parag_WDG_Tree()
-        self.tree.setFixedWidth(260)
+        self.tree.setFixedWidth(280)
         self.populate_tree()
         self.tree.currentItemChanged.connect(self.tree_select)
 
         self.toolbar_layout = QHBoxLayout()
+
+        self.bt_generate_all = Parag_WDG_Button("Genereaza Teste",           Parag_Icon("generate_test"), Parag_Icon("generate_test"), "#606060")
+        self.toolbar_layout.addWidget(self.bt_generate_all)
+
+        self.bt_generate_all.clicked.connect(self.clbk_bt_gen_all)
 
         #left tree layout area
         self.tree_area = QVBoxLayout()   
@@ -153,6 +158,31 @@ class Parag_UI(QMainWindow):
             self.context.insertWidget(_idx + 1, _desktop) 
 
         self.context.setCurrentIndex(0)  
+
+    def clbk_bt_gen_all(self,state):
+
+        _paths = []
+
+        _timestamp = str(datetime.now())
+
+        for _desktop in self.dekstops:
+
+            _path = _desktop.clbk_bt_gen(state=True,timestamp=_timestamp)
+
+            _paths.append(_path)
+
+        _path_txt = ""
+
+        for _path in _paths:
+
+            _path_txt += "   %s \n" % (os.path.split(_path)[1],)
+
+        _msg = QMessageBox()
+        _msg.setWindowIcon(Parag_Icon("parag"))
+        _msg.setIcon(QMessageBox.Information)
+        _msg.setText("Generat chestionare pentru test:\n%s"  % (_path_txt,))
+        _msg.setWindowTitle("Generat Chestionar Test " )
+        _msg.exec_()
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -267,11 +297,19 @@ class Parag_WDG_Desktop(QWidget):
 
         return _path,_timestamp
 
-    def get_generated_test_path(self,name):
+    def get_generated_test_path(self,name,timestamp=None):
 
         _path = self.get_docs_path()
 
-        _timestamp = str(datetime.now())
+        if timestamp == None:
+            _timestamp = str(datetime.now())
+        else:
+            _timestamp = timestamp
+            _path = os.path.join(_path,_timestamp.replace(":","_").replace(" ","_").replace("/","_").replace("-","_").replace(".","_"))
+
+            if not os.path.exists(_path):
+
+                os.mkdir(_path)
 
         _file_name = "test_%s_%s.docx" % (name,_timestamp.replace(":","_").replace(" ","_").replace("/","_").replace("-","_").replace(".","_"))
 
@@ -307,11 +345,11 @@ class Parag_WDG_Desktop(QWidget):
 
         self.wdg_test.start("learn")
 
-    def clbk_bt_gen(self,state):
+    def clbk_bt_gen(self,state,timestamp=None):
 
         _questions_indexes = random.sample(range(len(self.category.questions)), PARAG_NUMBER_OF_TEST_QUESTIONS)
 
-        _path, _timestamp = self.get_generated_test_path(self.category.name)
+        _path, _timestamp = self.get_generated_test_path(self.category.name,timestamp)
 
         _document = Document()
 
@@ -321,7 +359,6 @@ class Parag_WDG_Desktop(QWidget):
         _paragraph.add_run("%s\n%s" % (PARAG_TEST_HEADING,self.category.name.upper())).bold = True
         _document.add_paragraph("")
         _document.add_paragraph("")
-
 
         _question_count = 0
 
@@ -373,14 +410,19 @@ class Parag_WDG_Desktop(QWidget):
 
         _document.save(_path)
 
-        _msg = QMessageBox()
-        _msg.setWindowIcon(Parag_Icon("parag"))
-        _msg.setIcon(QMessageBox.Information)
-        _msg.setText("Generat chestionar test in fisierul\n%s" % (os.path.split(_path)[1],))
-        _msg.setWindowTitle("Generat Chestionar Test %s" % (self.category.name.upper(),))
-        _msg.exec_()
+        if timestamp == None:
 
-        os.startfile(_path)
+            _msg = QMessageBox()
+            _msg.setWindowIcon(Parag_Icon("parag"))
+            _msg.setIcon(QMessageBox.Information)
+            _msg.setText("Generat chestionar test in fisierul\n%s" % (os.path.split(_path)[1],))
+            _msg.setWindowTitle("Generat Chestionar Test %s" % (self.category.name.upper(),))
+            _msg.exec_()
+
+        
+            os.startfile(_path)
+
+        return _path
 
     def __generate_top_table(self,document):
 
