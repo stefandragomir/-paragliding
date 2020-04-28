@@ -31,6 +31,7 @@ from docx.oxml                    import OxmlElement
 from docx.oxml.ns                 import qn
 from io                           import StringIO
 from io                           import BytesIO
+from pprint                       import pprint
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -60,7 +61,8 @@ class Parag_UI(QMainWindow):
         QMainWindow.__init__(self)
 
         self.stack_index  = 0
-        self.db           = db      
+        self.db           = db   
+        self.dekstops     = []   
 
         self.draw_gui() 
 
@@ -144,7 +146,11 @@ class Parag_UI(QMainWindow):
 
         for _idx in range(len(self.db)):
 
-            self.context.insertWidget(_idx + 1, Parag_WDG_Desktop(self.db[_idx])) 
+            _desktop = Parag_WDG_Desktop(self.db[_idx])
+
+            self.dekstops.append(_desktop)
+
+            self.context.insertWidget(_idx + 1, _desktop) 
 
         self.context.setCurrentIndex(0)  
 
@@ -309,10 +315,13 @@ class Parag_WDG_Desktop(QWidget):
 
         _document = Document()
 
+        self.__generate_top_table(_document)
+
         _paragraph = _document.add_paragraph()
         _paragraph.add_run("%s\n%s" % (PARAG_TEST_HEADING,self.category.name.upper())).bold = True
         _document.add_paragraph("")
         _document.add_paragraph("")
+
 
         _question_count = 0
 
@@ -354,7 +363,8 @@ class Parag_WDG_Desktop(QWidget):
 
         _document.add_paragraph("Generat la data: %s" % (_timestamp,))
 
-        self.__generate_table(_document,_table_questions)
+        self.__generate_bottom_table(_document,_table_questions)
+
 
         _document.add_paragraph("")
         _document.add_paragraph("")
@@ -372,7 +382,56 @@ class Parag_WDG_Desktop(QWidget):
 
         os.startfile(_path)
 
-    def __generate_table(self,document,questions):
+    def __generate_top_table(self,document):
+
+            _table = document.add_table(rows=2, cols=3)
+
+            _table.cell(0, 0).text = "NUME SI PRENUME "
+            self.set_cell_border(
+                                    _table.cell(0, 0),
+                                    top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+            _table.cell(0, 1).text = "SEMNATURA"
+            self.set_cell_border(
+                                    _table.cell(0, 1),
+                                    top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+            _table.cell(0, 2).text = "DATA"
+            self.set_cell_border(
+                                    _table.cell(0, 2),
+                                    top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+            self.set_cell_border(
+                                    _table.cell(1, 0),
+                                    top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+            self.set_cell_border(
+                                    _table.cell(1, 1),
+                                    top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+            self.set_cell_border(
+                                    _table.cell(1, 2),
+                                    top={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    bottom={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    start={"sz": 5, "val": "single", "color": "#000000", "space": "0"},
+                                    end={"sz": 5, "val": "single", "color": "#000000", "space": "0"})
+
+    def __generate_bottom_table(self,document,questions):
 
             document.add_page_break()
 
