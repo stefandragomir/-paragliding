@@ -14,6 +14,7 @@ _path = os.path.split(os.path.split(os.path.abspath("__file__"))[0])[0]
 sys.path.append(_path)
 
 from docx                         import Document
+from docx.enum.text               import WD_ALIGN_PARAGRAPH
 from PyQt5.QtCore                 import *
 from PyQt5.QtGui                  import *
 from PyQt5.QtWidgets              import * 
@@ -183,6 +184,8 @@ class Parag_UI(QMainWindow):
         _msg.setText("Generat chestionare pentru test:\n%s"  % (_path_txt,))
         _msg.setWindowTitle("Generat Chestionar Test " )
         _msg.exec_()
+
+        os.startfile(os.path.split(_path)[0])
 
 """*************************************************************************************************
 ****************************************************************************************************
@@ -357,7 +360,9 @@ class Parag_WDG_Desktop(QWidget):
 
         _paragraph = _document.add_paragraph()
         _paragraph.add_run("%s\n%s" % (PARAG_TEST_HEADING,self.category.name.upper())).bold = True
+        _paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
         _document.add_paragraph("")
+        _document.add_paragraph("Test generat la data: %s" % (_timestamp,))
         _document.add_paragraph("")
 
         _question_count = 0
@@ -398,7 +403,7 @@ class Parag_WDG_Desktop(QWidget):
 
                 _document.add_paragraph("")
 
-        _document.add_paragraph("Generat la data: %s" % (_timestamp,))
+        _document.add_paragraph("Test generat la data: %s" % (_timestamp,))
 
         self.__generate_bottom_table(_document,_table_questions)
 
@@ -406,7 +411,7 @@ class Parag_WDG_Desktop(QWidget):
         _document.add_paragraph("")
         _document.add_paragraph("")
         _document.add_paragraph("")
-        _document.add_paragraph("Generat la data: %s" % (_timestamp,))
+        _document.add_paragraph("Test generat la data: %s" % (_timestamp,))
 
         _document.save(_path)
 
@@ -613,6 +618,7 @@ class Parag_WDG_Desktop(QWidget):
 
         _paragraph = _document.add_paragraph()
         _paragraph.add_run("%s\n%s" % (PARAG_QUESTIONS_HEADING,self.category.name.upper())).bold = True
+        _paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
         _document.add_paragraph("")
         _document.add_paragraph("")
 
