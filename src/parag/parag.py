@@ -356,14 +356,15 @@ class Parag_WDG_Desktop(QWidget):
 
         _document = Document()
 
+        _paragraph_format             = _document.styles['Normal'].paragraph_format
+        _paragraph_format.space_after = 3
+
         self.__generate_top_table(_document)
 
         _paragraph = _document.add_paragraph()
         _paragraph.add_run("%s\n%s" % (PARAG_TEST_HEADING,self.category.name.upper())).bold = True
         _paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        _document.add_paragraph("")
         _document.add_paragraph("Test generat la data: %s" % (_timestamp,))
-        _document.add_paragraph("")
 
         _question_count = 0
 
@@ -401,16 +402,10 @@ class Parag_WDG_Desktop(QWidget):
 
                     _paragraph = _document.add_paragraph(_answer_text)
 
-                _document.add_paragraph("")
-
         _document.add_paragraph("Test generat la data: %s" % (_timestamp,))
 
         self.__generate_bottom_table(_document,_table_questions)
 
-
-        _document.add_paragraph("")
-        _document.add_paragraph("")
-        _document.add_paragraph("")
         _document.add_paragraph("Test generat la data: %s" % (_timestamp,))
 
         _document.save(_path)
@@ -481,6 +476,10 @@ class Parag_WDG_Desktop(QWidget):
     def __generate_bottom_table(self,document,questions):
 
             document.add_page_break()
+
+            _paragraph = document.add_paragraph()
+            _paragraph.add_run("%s\n%s" % (PARAG_TEST_HEADING,self.category.name.upper())).bold = True
+            _paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
             _table = document.add_table(rows=11, cols=4)
 
