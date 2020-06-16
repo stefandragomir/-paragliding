@@ -69,7 +69,7 @@ class Parag_UI(QMainWindow):
 
     def draw_gui(self):
 
-        self.setWindowTitle("Licenta Parapanta")
+        self.setWindowTitle("Licenta Parapanta 1.0.2")
         self.setWindowIcon(Parag_Icon("parag"))
         self.setMinimumSize(1300, 800)       
         self.setMinimumHeight(500)
@@ -892,12 +892,13 @@ class Parag_WDG_Question(QWidget):
     def draw_gui(self):
 
         self.lbl_question = Parag_WDG_Label()
+        self.lbl_question.setWordWrap(True)
         self.lbl_image    = Parag_WDG_Label()
         self.rd_answers   = []
 
         for _index in range(5):
             self.rd_answers.append(Parag_WDG_CheckBox(""))
-            self.rd_answers[-1].stateChanged.connect(partial(self.clbk_answer,_index))
+            self.rd_answers[-1].checkbox.stateChanged.connect(partial(self.clbk_answer,_index))
 
         self.main_layout = QVBoxLayout()
         self.main_layout.addWidget(self.lbl_question)
@@ -949,12 +950,12 @@ class Parag_WDG_Question(QWidget):
 
             self.rd_answers[_index].show()
             self.rd_answers[_index].setStyleSheet("QCheckBox { color: #b1b1b1 }")
-            self.rd_answers[_index].setText(self.question.answers[_index].text)
+            self.rd_answers[_index].label.setText(self.question.answers[_index].text)
 
             if self.question.answers[_index].selected:
-                self.rd_answers[_index].setCheckState(Qt.Checked)
+                self.rd_answers[_index].checkbox.setCheckState(Qt.Checked)
             else:
-                self.rd_answers[_index].setCheckState(Qt.Unchecked)
+                self.rd_answers[_index].checkbox.setCheckState(Qt.Unchecked)
 
         self.lbl_question.setText(self.question.text)
 
