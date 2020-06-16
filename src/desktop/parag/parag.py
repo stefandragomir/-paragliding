@@ -845,7 +845,7 @@ class Parag_WDG_Desktop_Test(QWidget):
 
             self.lbl_result.show()
 
-            if _corect > PARAG_MIN_CORECT_QUESTIONS:
+            if _corect >= PARAG_MIN_CORECT_QUESTIONS:
                 self.lbl_result.setText("ADMIS")
                 self.lbl_result.setStyleSheet("QLabel { background-color : #14c941; font: 18pt; color: #ffffff}")
                 self.lbl_result.setAlignment(Qt.AlignCenter)
