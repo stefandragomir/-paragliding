@@ -707,8 +707,9 @@ class Parag_WDG_Desktop_Test(QWidget):
         self.lbl_result = Parag_WDG_Label()
 
         self.bt_layout = QHBoxLayout()
-        self.bt_layout.addWidget(self.bt_prev)
+        
         self.bt_layout.addWidget(self.bt_close)
+        self.bt_layout.addWidget(self.bt_prev)
         self.bt_layout.addWidget(self.bt_result)
         self.bt_layout.addWidget(self.bt_next)
 
@@ -747,9 +748,9 @@ class Parag_WDG_Desktop_Test(QWidget):
             self.bt_prev.show()
         else:            
             self.test_exam.clear()
+            self.bt_close.show()
             self.bt_next.show()
             self.bt_prev.show()
-            self.bt_result.show()
             self.get_test_questions()
             self.wdg_question.populate(self.test_exam.questions[self.question_number])
 
@@ -782,9 +783,18 @@ class Parag_WDG_Desktop_Test(QWidget):
             self.set_status()
         else:
             pass
-            #TODO complete test
+
+        if self.test_type != "learn":
+            if self.question_number == len(self.test_exam.questions) - 1:
+                self.bt_result.show()
+            else:
+                self.bt_result.hide()
 
     def clbk_prev(self,state):
+
+        if self.test_type != "learn":
+
+            self.bt_result.hide()
 
         if not self.is_begining(self.question_number):
 
@@ -798,7 +808,6 @@ class Parag_WDG_Desktop_Test(QWidget):
             self.set_status()
 
         else:
-
             pass
 
     def clbk_close(self,state):
@@ -949,7 +958,7 @@ class Parag_WDG_Question(QWidget):
 
         self.lbl_question.setText(self.question.text)
 
-    def clbk_answer(self,state,index):
+    def clbk_answer(self,index,state):
         
         self.question.answers[index].selected = state == Qt.Checked
 
