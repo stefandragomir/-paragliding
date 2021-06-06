@@ -1,6 +1,11 @@
 # paragliding
 UI for Romanian Paragliding License Test
 
+Features:
+* UI for learning
+* UI for testing
+* Generate MS Word tests
+
 Dependencies:
 * python 3.8
 * pyqt 5
