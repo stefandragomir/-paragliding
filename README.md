@@ -10,3 +10,5 @@ Dependencies:
 * python 3.8
 * pyqt 5
 * python docx 0.8.10
+
+See: http://www.azlr.ro/index.php/licentiere
